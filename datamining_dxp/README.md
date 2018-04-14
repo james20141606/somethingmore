@@ -1,4 +1,4 @@
-# 传网上对邓小平时代的分词与词频统计
+# 对邓小平时代的分词与词频统计
 # Use THULAC for Chinese words partition
 ## convert to UTF-8 format
 ```
