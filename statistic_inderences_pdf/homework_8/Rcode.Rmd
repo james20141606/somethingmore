@@ -1,0 +1,107 @@
+---
+title: "Homework 7"
+author: "Xupeng Chen"
+date: "2017/11/28"
+output:
+  pdf_document: default
+  html_document: default
+---
+  
+  
+  
+
+#(v)
+
+```{r eval=FALSE}
+library(bootstrap)
+sample<-c(3.0,2.7,2.9,2.8,3.1,2.6,2.5,2.8,2.4,2.9,2.7,2.6,3.2,3.0,2.8)
+theta1<-function(x,i){
+sam<-x[i]
+m<-mean(sam)
+v<-var(sam)
+return(m^2+v)
+}
+theta2<-function(x,i){
+sam<-x[i]
+m<-mean(sam)
+return(m^2)
+}
+set.seed(111)
+bootcorr1 <- boot(sample, theta1, R=500)
+bootcorr2 <- boot(sample, theta2, R=500)
+bootcorr1
+bootcorr2
+```
+```{r}
+library(bootstrap)
+set.seed(111)
+jackknife(sample,theta1)
+jackknife(sample,theta2)
+```
+
+
+(vi)
+
+```{r eval=FALSE}
+library(bootstrap)
+sample<-c(3.0,2.7,2.9,2.8,3.1,2.6,2.5,2.8,2.4,2.9,2.7,2.6,3.2,3.0,2.8)
+theta1<-function(x,i){
+sam<-x[i]
+m<-mean(sam)
+v<-var(sam)
+return(m^2+v)
+}
+theta2<-function(x,i){
+sam<-x[i]
+m<-mean(sam)
+return(m^2)
+}
+set.seed(111)
+bootcorr1 <- boot(sample, theta1, R=500)
+bootcorr2 <- boot(sample, theta2, R=500)
+boot.ci(boot.out = bootcorr1, type = c("norm", "basic", "perc", "bca"))
+boot.ci(boot.out = bootcorr2, type = c("norm", "basic", "perc", "bca"))
+```
+
+
+
+
+#4
+(iv)
+$$
+\text{we can get the CI is approximately:} {[\bar X - \bar Y - z_{\alpha/2}\sqrt{\frac{S_1^2}{m}+\frac{S_2^2}{n}},\bar X - \bar Y + z_{\alpha/2}\sqrt{\frac{S_1^2}{m}+\frac{S_2^2}{n}}]}\\
+\text{by using bootstrap we have the interval: }{[77442.7, 91352.5]}
+$$
+```{r eval=FALSE}
+library(bootstrap)
+library(boot)
+set.seed(111)
+library(dplyr)
+data<-read.csv('729105428_8_data.csv')
+air<-select(data,Central_Air,SalePrice)
+airY<-filter(air,Central_Air=="Y")
+airN<-filter(air,Central_Air=="N")
+airY1<-select(airY,SalePrice)
+airY11<-unlist(airY1)
+airN1<-select(airN,SalePrice)
+airN11<-unlist(airN1)
+theta1<-function(x,i){
+samp<-x[i]
+m<-mean(samp)
+return(m)
+}
+theta2<-function(x,i){
+samp<-x[i]
+v<-var(samp)
+return(v)
+}
+bootcorr1 <- boot(airY11, theta1, R=500)
+bootcorr2 <- boot(airY11, theta2, R=500)
+bootcorr3<-boot(airN11, theta1, R=500)
+bootcorr4<-boot(airN11, theta2, R=500)
+bootcorr1
+bootcorr2
+bootcorr3
+bootcorr4
+```
+
