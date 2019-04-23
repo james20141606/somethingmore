@@ -1,0 +1,73 @@
+---
+title: "HomeWork1"
+author: Chen Xupeng
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## 1 
+$$
+\hat { \boldsymbol { \beta } } = \left( \mathbf { X } ^ { \top } \mathbf { X } \right) ^ { - 1 } \mathbf { X } ^ { \top } \mathbf { Y } \\
+\hat { \boldsymbol { \beta } } ( \lambda ) = \left( \mathbf { X } ^ { \top } \mathbf { X } + \lambda \mathbf { I } _ { p p } \right) ^ { - 1 } \mathbf { X } ^ { \top } \mathbf { Y }\\
+\hat { \boldsymbol { \beta } } ( \lambda ) = (1+ \lambda)^{-1}\hat { \boldsymbol { \beta } }\\
+$$
+So we have:
+$$
+ \operatorname{Var} \hat{\boldsymbol{\beta}}   = \sigma^2    \mathbf{I}_{pp} \\ 
+\operatorname{Var} \hat {\boldsymbol{\beta}} _{\lambda}    = \sigma ^ { 2 } ( 1 + \lambda ) ^ { - 1 } \mathbf { I } _ { p p }  
+$$
+
+
+
+Thus we have 
+$$
+\operatorname { Var } \left( \hat { \beta } _ { j } ^ { r i d g e } \right) < \operatorname { Var } \left( \hat { \beta } _ { j } ^ { o l s } \right) , \text { for } j = 1 , \ldots , p
+$$
+
+
+
+## 2
+Here we assume variables are uncorrelated that implies $\mathbf { X } _ { i } ^ { T } \mathbf { X } _ { j } = 0$ for each $i \neq j$ and $\frac { 1 } { n } \mathbf { X } ^ { T } \mathbf { X } = I _ { p }$ 
+$$
+\hat { \beta } : = \hat { \beta } ( \lambda ) = \underset { \beta \in \mathbb { R } ^ { p } } { \arg \min } \left\{ \frac { 1 } { n } \| \mathbf { Y } - \mathbf { X } \boldsymbol { \beta } \| _ { 2 } ^ { 2 } + \lambda \| \boldsymbol { B } \| _ { 1 } \right\}
+$$
+
+from the KKT stationarity condition we get：
+$$
+\begin{array} { c } { - \frac { 2 } { n } \mathbf { X } ^ { T } ( \mathbf { Y } - \mathbf { X } \hat { \beta } ) + \lambda \operatorname { sign } ( \hat { \beta } ) = 0 } \\ { \frac { 1 } { n } \mathbf { X } ^ { T } ( \mathbf { Y } - \mathbf { X } \hat { \beta } ) = \frac { \lambda } { 2 } \operatorname { sign } ( \hat { \beta } ) } \end{array}
+$$
+$\frac { 1 } { n } \mathbf { X } ^ { T } \mathbf { X } = I _ { p }$, so we have:
+
+$$
+\hat { \beta } = \frac { 1 } { n } \mathbf { X } ^ { T } \mathbf { Y } - \frac { \lambda } { 2 } \operatorname { sign } ( \hat { \beta } )
+\hat { \beta } _ { j } = \left\{ \begin{array} { l l } { \frac { 1 } { n } \left( \mathbf { X } ^ { T } \mathbf { Y } \right) _ { j } + \frac { \lambda } { 2 } } & { \text { if } \frac { 1 } { n } \left( \mathbf { X } ^ { T } \mathbf { Y } \right) _ { j } < - \frac { \lambda } { 2 } } \\ { 0 } & { \text { if } \frac { 1 } { n } \left| \left( \mathbf { X } _ { 1 } ^ { T } \mathbf { Y } \right) _ { j } \right| \leq \frac { \lambda } { 2 } } \\ { \frac { 1 } { n } \left( \mathbf { X } ^ { T } \mathbf { Y } \right) _ { j } - \frac { \lambda } { 2 } } & { \text { if } \frac { 1 } { n } \left( \mathbf { X } ^ { T } \mathbf { Y } \right) _ { j } > \frac { \lambda } { 2 } } \end{array} \right.
+$$
+
+The coefficient $\hat { \beta } _ { j }$ is then computed by soft-thresholding the $j ^ { th }$ row of $\left( \hat { \beta } _ { O L S } \right) _ { j } = \left( \frac { 1 } { n } \mathbf { X } ^ { T } \mathbf { Y } \right) _ { j },$ by $\frac { \lambda } { 2 }$
+
+
+
+## 3
+Because we need to select the hyper parameters, the parameters which can not be optimized and selected by the specific algorithm one choose(like ridge or lasso). These hyper parameters are empirical and chosen by human. So it needs CV to be compared and selected.
+
+
+## 4
+### 4.1
+We have:
+$$
+E(Y-\hat f (x^*))^2 \\
+=E(f (x^*)+\epsilon-\hat f (x^*))^2\\
+=E(f (x^*)-\hat f (x^*))^2 + E(\epsilon^2)+E(2\epsilon(...))
+$$
+The second term and the third term is irrelevant in optimizing process. So we have $\mathbf{min }E(Y-\hat f (x^*))^2 \text{ equals } \mathbf{min }E(f (x^*)-\hat f (x^*))^2$
+
+### 4.2
+$$
+E(f (x^*)-\hat f (x^*))^2\\
+= E(f (x^*)-\hat f (x^*)+E(\hat f (x^*))-E(\hat f (x^*)))^2\\
+=E(f (x^*) -E(\hat f (x^*)) )^2+E(\hat f (x^*) -E(\hat f (x^*)) )^2 +2E ((E(\hat f (x^*))-\bar f (x^*))(f (x^*) -E(\hat f (x^*))))\\
+=(f-E(\hat f (x^*)))^2+E(E(\hat f (x^*)-\hat f (x^*))+2(\hat f (x^*)-E(\hat f (x^*))\\
+=E(f(x*)-E(\hat f (x^*)))^2+var(\hat f(x^*))
+$$
+

@@ -1,0 +1,170 @@
+---
+title: "Homework1"
+author: "Chen Xupeng"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## 2
+### 2.5
+#### a
+$$
+\begin{aligned} \operatorname { Pr } ( y = k ) & = \int _ { 0 } ^ { 1 } \operatorname { Pr } ( y = k | \theta ) d \theta \\ & = \int _ { 0 } ^ { 1 } \left( \begin{array} { c } { n } \\ { k } \end{array} \right) \theta ^ { k } ( 1 - \theta ) ^ { n - k } d \theta \\ & = \left( \begin{array} { c } { n } \\ { k } \end{array} \right) \frac { \Gamma ( k + 1 ) \Gamma ( n - k + 1 ) } { \Gamma ( n + 2 ) } \\ & = \frac { 1 } { n + 1 } \end{aligned}
+$$
+
+#### b
+from the geometriy arribute, we know a point between \frac { \alpha } { \alpha + \beta } \text { and } \frac { y } { n } can be written as $\frac { \alpha + y } { \alpha + \beta + n } = \lambda \frac { \alpha } { \alpha + \beta } + ( 1 - \lambda ) \frac { y } { n }$ and $\lambda \in [0,1]$
+
+We can also write $\frac { \alpha + y } { \alpha + \beta + n } $ as $ \frac { y } { n } + \lambda \left( \frac { \alpha } { \alpha + \beta } - \frac { y } { n } \right)$
+
+#### c
+$\text { Uniform prior distribution: } \alpha = \beta = 1 . \text { Prior variance is } \frac { \alpha \beta } { ( \alpha + \beta ) ^ { 2 } ( \alpha + \beta + 1 ) } = \frac { 1 } { 12 }$
+
+$$\begin{aligned} \text { Posterior variance } & = \frac { ( 1 + y ) ( 1 + n - y ) } { ( 2 + n ) ^ { 2 } ( 3 + n ) } \\ & = \left( \frac { 1 + y } { 2 + n } \right) \left( \frac { 1 + n - y } { 2 + n } \right) \left( \frac { 1 } { 3 + n } \right) \end{aligned}$$
+
+The first two factors in are two numbers that sum to $1 ,$ so their product is at most $\frac { 1 } { 4 } .$ And, since
+$n \geq 1 ,$ the third factor is less than $\frac { 1 } { 4 } .$ So the product of all three factors is less than $\frac { 1 } { 16 }$ .
+
+#### d
+n = n and y = 1. α = 1, β = 3, then prior variance is $\frac{3}{80}$, and posterior variance is $\frac{1}{20}$.
+
+### 2.7
+#### a
+$q ( \theta ) = p \left( \frac { e ^ { \phi } } { 1 + e ^ { \phi } } \right) \left| \frac { d } { d \theta } \log \left( \frac { \theta } { 1 - \theta } \right) \right| \propto \theta ^ { - 1 } ( 1 - \theta ) ^ { - 1 }$
+
+
+#### b. 
+If $y = 0$, $p ( \theta | y ) \propto \theta ^ { - 1 } ( 1 - \theta ) ^ { n - 1 }$ has infinite integral over any interval near $\theta = 0$. When $y = n$ similar result happens at $\theta = 1 .$
+
+
+### 2.8
+#### a
+
+$$\theta \left| y \sim \mathrm { N } \left( \frac { \frac { 1 } { 40 ^ { 2 } } 180 + \frac { n } { 20 ^ { 2 } } 150 } { \frac { 1 } { 40 ^ { 2 } } + \frac { n } { 20 ^ { 2 } } } , \frac { 1 } { \frac { 1 } { 40 ^ { 2 } } + \frac { n } { 20 ^ { 2 } } } \right) \right.$$
+
+#### b
+$$\tilde { y } \left| y \sim \mathrm { N } \left( \frac { \frac { 1 } { 40 ^ { 2 } } 180 + \frac { n } { 20 ^ { 2 } } 150 } { \frac { 1 } { 40 ^ { 2 } } + \frac { n } { 20 ^ { 2 } } } , \frac { 1 } { \frac { 1 } { 40 ^ { 2 } } + \frac { n } { 20 ^ { 2 } } } + 20 ^ { 2 } \right) \right.$$
+
+#### c
+
+95$\%$ posterior interval for $\theta | \overline { y } = 150 , n = 10 : \quad 150.7 \pm 1.96 ( 6.25 ) = [ 138,163 ]$
+
+95$\%$ posterior interval for $\tilde { y } | \overline { y } = 150 , n = 10 : \quad 150.7 \pm 1.96 ( 20.95 ) = [ 110,192 ]$
+
+#### d
+
+95$\%$ posterior interval for $\theta | \overline { y } = 150 , n = 100 : \quad [ 146,154 ]$
+
+95$\%$ posterior interval for $\tilde { y } | \overline { y } = 150 , n = 100 : \quad [ 111,189 ]$
+
+### 2.19
+#### a
+We have $p ( y | \theta ) = \theta \cdot e ^ { - \theta y } I _ { ( 0 , \infty ) } ( y )$, let the prior be Gamma distribution: $P ( \theta ) = \frac { \beta ^ { \alpha } } { P ( \alpha ) } \theta ^ { \alpha - 1 } e ^ { - \beta \theta } I _ { ( 0 , \infty ) } \sim Gamma (\alpha, \beta)$
+So, $P ( \theta | y ) \propto p ( y / \theta ) p ( \theta ) \propto \theta^{\alpha}e^{-(\beta+y)\theta} I _ { ( 0 , \infty ) }(y,\theta)$
+So, $p ( y | \theta )\sim Gamma(\alpha+1,\beta+y)$ is conjugate prior distribution
+
+#### b
+$$
+P ( \phi ) = p ( \theta ) \left| \frac { d \theta } { d \phi } \right| , \quad \theta = \frac { 1 } { \phi }\\ 
+P ( \theta ) = \frac { \beta ^ { \alpha } } { \Gamma ( \alpha ) } \theta ^ { \alpha - 1 } e ^ { - \beta \theta } I _ { [ 0 , \infty ) } ( \theta ), \frac { d \theta } { d \phi } = - \frac { 1 } { \phi ^ { 2 } }
+$$
+
+so we have 
+$$P ( \phi ) = \frac { \beta ^ { \alpha } } { \Gamma ( \alpha ) } \phi ^ { - ( \alpha - 1 ) } e ^ { - \beta / \phi } \frac { 1 } { \phi ^ { 2 } } I _ { [ 0 , \infty ) } ( \phi )\\
+= \frac { \beta ^ { \alpha } } { \Gamma ( \alpha ) } \phi ^ { - ( \alpha + 1 ) } \cdot e ^ { - \frac { \beta } { \phi } } I _ { [ \cos j } ( \phi ) \sim Inv - Gamma( \alpha , \beta )
+$$
+
+#### c
+$CV =  \alpha^{-\frac{1}{2}}=0.5 \Rightarrow \alpha=4$, $p ( \theta | y ) \sim G _ { a m a } ( \alpha + n , \beta + n \overline { y } )$, from $CV=( \alpha + n ) ^ { - \frac { 1 } { 2 } } = 0.1 \Rightarrow n = 96$
+
+#### d
+$P ( \phi ) \sim Inv - Gamma( \alpha , \beta )$, $CV = ( \alpha - 2 ) ^ { - \frac { 1 } { 2 } } = 0.5 \Rightarrow \alpha = 6$
+And, 
+$$P ( \phi | y ) \propto p ( \phi ) p ( y | \phi )  \\
+\propto \phi^{-n}e^{-\frac{n\bar y }{\phi}}I _ { ( 0 , \infty ) }(y) \phi^{-(\alpha+1)}e^{-\frac{\beta}{\phi}}I _ { ( 0 , \infty ) }(\phi) \\
+\sim Inv-Gamma(\alpha+n,\beta+n\bar y)
+$$
+Now, $CV = (\alpha+n-2)^(-0.5)=0.1 \Rightarrow n=96$
+
+
+## 3
+### 3.1
+#### a
+Label the prior distribution $p ( \theta )$ as Dirichlet $\left( a _ { 1 } , \ldots , a _ { n } \right) .$ The posterior distribution
+is $p ( \theta | y ) = \operatorname { Dirichlet } \left( y _ { 1 } + a _ { 1 } , \ldots , y _ { n } + a _ { n } \right) .$, the marginal posterior distribution of $\left( \theta _ { 1 } , \theta _ { 2 } , 1 - \theta _ { 1 } - \theta _ { 2 } \right)$ is also Dirichlet:
+$$p \left( \theta _ { 1 } , \theta _ { 2 } | y \right) \propto \theta _ { 1 } ^ { y _ { 1 } + a _ { 1 } - 1 } \theta _ { 2 } ^ { y _ { 2 } + a _ { 2 } - 1 } \left( 1 - \theta _ { 1 } - \theta _ { 2 } \right) ^ { y _ { \mathrm { rest } } + a _ { \mathrm { rest } } - 1 } $$
+where $y _ { \mathrm { rest } } = y _ { 3 } + \ldots + y _ { J } , a _ { \mathrm { rest } } = a _ { 3 } + \ldots + a _ { J }$
+
+Change variables to $( \alpha , \beta ) = \left( \frac { \theta _ { 1 } } { \theta _ { 1 } + \theta _ { 2 } } , \theta _ { 1 } + \theta _ { 2 } \right) .$ The Jacobian of this transformation
+is $| 1 / \beta | ,$ so the transformed density is
+$$\begin{aligned} p ( \alpha , \beta | y ) & \propto \beta ( \alpha \beta ) ^ { y _ { 1 } + a _ { 1 } - 1 } ( ( 1 - \alpha ) \beta ) ^ { y _ { 2 } + a _ { 2 } - 1 } ( 1 - \beta ) ^ { y _ { \mathrm { rest } } + a _ { \mathrm { rest } } - 1 } \\ & = \alpha ^ { y _ { 1 } + a _ { 1 } - 1 } ( 1 - \alpha ) ^ { y _ { 2 } + a _ { 2 } - 1 } \beta ^ { y _ { 1 } + y _ { 2 } + a _ { 1 } + a _ { 2 } - 1 } ( 1 - \beta ) ^ { y _ { \mathrm { rest } } + a _ { \mathrm { rest } } - 1 } \\ & \propto \operatorname { Beta } ( \alpha | y _ { 1 } + a _ { 1 } , y _ { 2 } + a _ { 2 } ) \operatorname { Beta } ( \beta | y _ { 1 } + y _ { 2 } + a _ { 1 } + a _ { 2 } , y _ { \mathrm { rest } } + a _ { \mathrm { rest } } ) \end{aligned}$$
+since the posterior density divides into separate factors for $\alpha$ and $\beta ,$ they are independent, and, and
+shown above, $\alpha \left| y \sim \operatorname { Beta } \left( y _ { 1 } + a _ { 1 } , y _ { 2 } + a _ { 2 } \right) \right.$
+
+#### b
+The Beta $\left( y _ { 1 } + a _ { 1 } , y _ { 2 } + a _ { 2 } \right)$ posterior distribution can also be derived from a Beta $\left( a _ { 1 } , a _ { 2 } \right)$ prior
+distribution and a binomial observation $y _ { 1 }$ with sample size $y _ { 1 } + y _ { 2 }$ .
+
+
+### 3.9
+$$
+\begin{aligned} p \left( \mu , \sigma ^ { 2 } | y \right) & \propto p ( y | \mu , \sigma ^ { 2 } ) p \left( \mu , \sigma ^ { 2 } \right) \\ & \propto \left( \sigma ^ { 2 } \right) ^ { - n / 2 } \exp \left( - \frac { ( n - 1 ) s ^ { 2 } + n ( \mu - \overline { y } ) ^ { 2 } } { 2 \sigma ^ { 2 } } \right) \sigma ^ { - 1 } \left( \sigma ^ { 2 } \right) ^ { - \left( \nu _ { 0 } / 2 + 1 \right) } \exp \left( - \frac { \nu _ { 0 } \sigma _ { 0 } ^ { 2 } + \kappa _ { 0 } \left( \mu - \mu _ { 0 } \right) ^ { 2 } } { 2 \sigma ^ { 2 } } \right) \\ & \propto \sigma ^ { - 1 } \left( \sigma ^ { 2 } \right) ^ { - \left( \left( \nu _ { 0 } + n \right) / 2 + 1 \right) } \exp \left( - \frac { \nu _ { 0 } \sigma _ { 0 } ^ { 2 } + ( n - 1 ) s ^ { 2 } + \frac { n \kappa _ { 0 } \left( \overline { y } - \mu _ { 0 } \right) ^ { 2 } } { n + \kappa _ { 0 } } + \left( n + \kappa _ { 0 } \right) \left( \mu - \frac { \mu _ { 0 } \kappa _ { 0 } + n \overline { y } } { n + \kappa _ { 0 } } \right) ^ { 2 } } { 2 \sigma ^ { 2 } } \right) \end{aligned}\\
+\begin{array} { c } { \mu , \sigma ^ { 2 } \left| y \sim \mathrm { N } - \operatorname { Inv } _ { - } \chi ^ { 2 } \left( \frac { \mu _ { 0 } \kappa _ { 0 } + n \overline { y } } { n + \kappa _ { 0 } } , \frac { \sigma _ { n } ^ { 2 } } { n + \kappa _ { 0 } } ; n + \nu _ { 0 } , \sigma _ { n } ^ { 2 } \right) \right. } \\ { \sigma _ { n } ^ { 2 } = \frac { \nu _ { 0 } \sigma _ { 0 } ^ { 2 } + ( n - 1 ) s ^ { 2 } + \frac { n \kappa _ { 0 } \left( \overline { y } - \mu _ { 0 } \right) ^ { 2 } } { n + \kappa _ { 0 } } } { n + \nu _ { 0 } } } \end{array}
+$$
+
+### and prove 
+$\mu | \sigma^2 , y \sim N (\bar y, \sigma^2/n)$
+
+$P ( u | \sigma ^ { 2 } , y ) = P \left( u , \sigma ^ { 2 } | y \right) / P \left( \sigma ^ { 2 } | y \right)$, for non-informative, $p \left( x , \sigma ^ { 2 } | y \right) \propto p ( y | y , \sigma ^ { 2 } ) p \left( u , \sigma ^ { 2 } \right)$
+$$
+p \left( x , \sigma ^ { 2 } | y \right) \propto \sigma ^ { - ( n + 2 ) }\exp \left\{ - \frac { 1 } { \sigma ^ { 2 } } \sum _ { i = 1 } ^ { n } \left( y _ { i } - u \right) ^ { 2 } \right\} \\
+=\sigma ^ { - ( n + 2 ) } \exp \left\{ - \frac { 1 } { 2 \sigma ^ { 2 } } \left[ ( n - 1 ) s ^ { 2 } + n ( \overline { y } - \mu) ^ { 2 } \right] \right\}
+$$
+
+and we have $p(\sigma^2 | y) = \int p(\mu,\sigma^2|y)d\mu \propto  \sigma^{-(n+2)} \exp { - \frac { 1 } { 2 \sigma ^ { 2 } }  ( n - 1 ) s ^ { 2 } }\sqrt{2\pi \sigma^2/n}$ 
+
+## Addition
+Prove that Jeffreys’ prior for $\mu | \sigma^2 , y \sim N (\bar y, \sigma^2/n)$ is $p ( \mu , \sigma ) \propto \left( \sigma ^ { 2 } \right) ^ { - 1 } $ without any (independence) assumptions. This result was presented on the blackboard today. Please derive it.
+
+$$\theta = [ \mu,\sigma ]\\
+P ( \theta ) \propto [ J ( \theta ) ] ^ { \frac { 1 } { 2 } }\\
+$$
+and we have
+$$
+\begin{aligned} \log p ( y / \theta ) & = \log \left[ \frac { 1 } { \left( 2 \pi \sigma ^ { 2 } \right) ^ { \frac { n } { 2 } } } \exp \left( - \frac { 1 } { 2 \sigma ^ { 2 } } \sum _ { i = 1 } ^ { n } \left( y _ { i } - u \right) ^ { 2 } \right) \right] \\ & = C - n \log \sigma - \frac { 1 } { 2 \sigma ^ { 2 } } \sum _ { i = 1 } ^ { n } \left( y _ { i } - u \right) ^ { 2 } \end{aligned}
+$$
+
+$$\Rightarrow \frac { \partial \log P ( y | \theta ) } { \partial \mu } = \frac { \sum _ { i = 1 } ^ { n } \left( y _ { i } - u \right) } { \sigma ^ { 2 } } \Rightarrow \frac { \partial ^ { 2 } \log p ( y | \theta ) } { \partial u ^ { 2 } } = - \frac { n } { \sigma ^ { 2 } }$$
+
+$\Rightarrow \frac { \partial \log P ( y | \theta ) } { \partial \sigma } = - \frac { n } { \sigma } +\frac { 1 } { \sigma ^ { 3 } } \sum _ { i = 1 } ^ { n } \left( y _ { i } - u \right) ^ { 2 }$
+$\frac { \partial ^ { 2 } \log p ( y | \theta ) } { \partial \sigma ^ { 2 } \cdot } = \frac { \theta n } { \sigma ^ { 2 } } - \frac { 3 } { \sigma ^ { 4 } } \sum _ { i = 1 } ^ { n } \left( y _ { i } - u \right) ^ { 2 }$
+$\Rightarrow \frac { \partial ^ { 2 } \log p ( y | \theta ) } { \partial u \partial \sigma } = - \frac { 2 \sum _ { i = 1 } ^ { n } \left( y _ { i } - u \right) } { \sigma ^ { 3 } }$
+
+So $J(\theta)$ 
+$$= \left[ \begin{array} { c c } { - E \left( \frac { \partial ^ { 2 } \log p ( y | \theta ) } { \partial \mu ^ { 2 } } \right) } & - E \left( \frac { \partial ^ { 2 } \log P ( y | \theta ) } { \partial u d \theta } \right) \\ - E \left( \frac { \partial ^ { 2 } \log P ( y | \theta ) } { \partial u d \theta } \right) &- E \left( \frac { \partial ^ { 2 } \log p ( y | \theta ) } { \partial \theta ^ { 2 } } \right) \end{array} \right]$$
+$$= \left[ \begin{array} { c c } { \frac { n } { \sigma ^ { 2 } } } & { 0 } \\ { 0 } & { \frac { 2 n } { \sigma ^ { 2 } } } \end{array} \right]$$
+
+So $$\operatorname { det } [  J(\theta) ^ { \frac { 1 } { 2 }} ]  =  \left[ \begin{array} { c c } { \frac { \sqrt n } { \sigma  } } & { 0 } \\ { 0 } & { \frac { \sqrt2 n } { \sigma  } } \end{array} \right] \\
+= \sqrt { 2 } \eta \sigma ^ { - 2 } \sigma \cdot \sigma ^ { - 2 }$$
+$\Rightarrow p ( \mu,\sigma ) \propto \left( \sigma ^ { 2 } \right) ^ { - 1 }$
+
+
+
+$$
+\mathbf{OPQRST}\\
+\mathcal{OPQRST} \\
+\mathfrak{OPQRST} \\
+\mathbb{OPQRST}
+$$
+
+
+
+$$
+3x^2 \in R \subset Q \\
+\mathrm{3x^2 \in R \subset Q} \\
+\mathit{3x^2 \in R \subset Q} \\
+\mathbf{3x^2 \in R \subset Q} \\
+\mathsf{3x^2 \in R \subset Q} \\
+\mathtt{3x^2 \in R \subset Q} 
+$$

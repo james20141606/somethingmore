@@ -1,0 +1,111 @@
+---
+title: "Bayes Homework4"
+author: "Chen Xupeng"
+output:
+  html_document: default
+---
+
+
+Textbook:
+# Chapter6:6
+
+Variety of predictive reference sets: in the example of binary outcomes on page 147, it is assumed that the number of measurements, n, is ﬁxed in advance, and so the hypothetical replications under the binomial model are performed with n = 20. Suppose instead that the protocol for measurement is to stop once 13 zeros have appeared.
+
+(a) Explain why the posterior distribution of the parameter $\theta$ under the assumed model does not change.
+
+using new protocol we have:
+
+$$
+p ( y , n | \theta ) = \prod _ { i = 1 } ^ { n } \theta ^ { y _ { i } } ( 1 - \theta ) ^ { 1 - y _ { i } } 1 _ { \left( y _ { n } = 0 \right) } 1
+$$
+
+For the given data it is $\theta ^ { 7 } ( 1 - \theta ) ^ { 13 }$, which is the likelihood. If the prior for $\theta$ is unchanged, the posterior distribution will not be changed
+
+
+(b) Perform a posterior predictive check, using the same test quantity, T = number of switches, but simulating the replications $y^{rep}$ under the new measurement protocol. Display the predictive simulations, T($y^{rep}$), and discuss how they diﬀer from Figure 6.5.
+
+```{r}
+test <- NULL 
+for (i in 1:1000){ 
+  theta <- rbeta (1,8,14) 
+  y.rep <- rbinom (1,1,theta) 
+  while (sum(y.rep==0) < 13) 
+    y.rep <- c(y.rep, rbinom(1,1,theta)) 
+  n.rep <- length(y.rep) 
+  test <- c(test, 
+            sum (y.rep[2:n.rep] != y.rep[1:(n.rep-1)]))} 
+hist (test, xlab="T (y-rep)", yaxt="n", breaks=seq(-.5, max(test)+.5), cex=2)
+```
+
+there are two differences: the data distribution is more dispersed because now n is also a random variable. and there are more even values because of particular data collection procedure.
+
+
+
+# Hypothesis Testing in Bayesian Framework (the homework mentioned in class):
+Suppose we flip a coin, and get 9 heads and 3 tails. Denote $\theta$ as the probability of head. Consider 
+$$
+\mathrm { H } _ { 0 } : \theta = 1 / 2  \textbf{ vs } \mathrm { H } _ { 1 } : \theta > 1 / 2
+$$
+
+Suppose we have no preference between null hypothesis and alternative hypothesis in prior. Please use Bayes Factor to compare these two hypothesis, under Binomial model and Negative binomial model, separately. Is there difference between these two results?
+
+
+
+$$
+\text { Bayes factor } \left( H _ { 2 } ; H _ { 1 } \right) = \frac { p \left( y | H _ { 2 } \right) } { p \left( y | H _ { 1 } \right) } = \frac { \int p \left( \theta _ { 2 } | H _ { 2 } \right) p \left( y | \theta _ { 2 } , H _ { 2 } \right) d \theta _ { 2 } } { \int p \left( \theta _ { 1 } | H _ { 1 } \right) p \left( y | \theta _ { 1 } , H _ { 1 } \right) d \theta _ { 1 } }
+$$
+using bayes factor we can have posterior odds from prior odds
+
+$$
+\frac { p \left( H _ { 1 } | y \right) } { p \left( H _ { 0 } | y \right) } = \frac { p \left( H _ { 1 } \right) } { p \left( H _ { 0 } \right) } \times \text { Bayes factor } \left( H _ { 1 } ; H _ { 0 } \right)
+$$
+## For binomial model
+
+$$
+p (y| H _ { 0 }) = C_{12}^9 \cdot(\frac{1}{2})^{12}\\
+p (y| H _ { 1 }) = \int_{\frac{1}{2}}^1 p(y|\theta)p(\theta) d\theta \\
+=\int_{\frac{1}{2}}^1 C_{12}^9 \theta^9 (1-\theta)^3\cdot 2d\theta
+$$
+
+
+```{r}
+p_h0 <- choose(12,9)*0.5**9*0.5**3
+p_h1_function <- function(x) {choose(12,9)*x**9*(1-x)**3*2}
+p_h1 <- integrate(p_h1_function, lower = 0.5, upper = 1)
+p_h0
+p_h1
+p_h1$value/p_h0
+```
+
+
+
+
+$$
+ \text { Bayes factor: } p \left( y | H _ { 1 } \right) / p \left( y | H _ { 0 } \right) = 2.732168 \\
+$$
+
+
+from the bayes factor criteria, there is weak proof to support the alternative hypothesis that $\theta > \frac{1}{2}$.
+
+## for negative binomial distribution
+
+$$
+p (y| H _ { 0 }) = C_{11}^8 \cdot(\frac{1}{2})^{12}\\
+p (y| H _ { 1 }) = \int_{\frac{1}{2}}^1 p(y|\theta)p(\theta) d\theta \\
+=\int_{\frac{1}{2}}^1 C_{11}^8 \theta^9 (1-\theta)^3\cdot 2d\theta
+$$
+```{r}
+p_h0 <- choose(11,8)*0.5**9*0.5**3
+p_h1_function <- function(x) {choose(11,8)*x**9*(1-x)**3*2}
+p_h1 <- integrate(p_h1_function, lower = 0.5, upper = 1)
+p_h0
+p_h1
+p_h1$value/p_h0
+```
+
+$$
+ \text { Bayes factor: } p \left( y | H _ { 1 } \right) / p \left( y | H _ { 0 } \right) = 2.732168 \\
+$$
+
+from the bayes factor criteria, there is weak proof to support the alternative hypothesis that $\theta > \frac{1}{2}$.
+

@@ -1,0 +1,184 @@
+---
+title: "HomeWork3"
+author: "Chen Xupeng"
+output:
+  html_document: default
+---
+
+
+## 1
+$P ( G = 1 | X = x ) = P ( x ; \theta )$, $P ( G = 2 | X = x ) = 1 - P ( x ; \theta )$
+So we have 
+$$
+\log \frac { P ( G = 1 | X = x ) } { P ( G = 2 | x = x ) }\\=
+\frac { p ( x ; \theta ) } { 1 - p \left( x _ { i } \theta \right) }\\=
+\beta _ { 10 } + \beta _ { 1 } ^ { T } x\\
+\Rightarrow p ( x , \theta ) = \frac { e ^ { \beta T x } } { 1 + e ^ { \beta ^ { T } x } }, \beta = \left[ \begin{array} { l l } { \beta_{10} } , { \beta_{1} } \end{array} \right]
+$$
+the log likelihood function:
+$$
+l(\beta ) = \sum _ { i = 1 } ^ { N } \left\{ y _ { i } \cdot \log P \left( x _ { i } , \beta \right) + \left( 1 - y _ { i } \right) \log \left( 1 - p \left( x _ { i } , \beta \right) \right) \right\}\\
+= \sum _ { i = 1 } ^ { N } y _ { i } \log \frac { p \left( x _ { i } , \beta \right) } { 1 - P \left( x _ { i } , \beta \right) } + \log \left( 1 - p \left( x _ { i } ; \beta \right) \right)\\
+=\sum _ { i = 1 } ^ { N } y _ { i } \cdot \beta _ { i } ^ { T } x _ { i } - \log \left( 1 + e ^ { \beta^T x _ { i } } \right)
+$$
+calculate the derivatives of l we have $\nabla _ { \beta } l =\sum _ { i = 1 } ^ { N } y _ { i } x _ { i } - \frac { x _ { i } e ^ { \beta } x _ { i } } { 1 + e ^ { \beta T } x _ { i } }=0$
+$$
+H = -\sum_{i=1}^N\frac{x_i[x_i^T e^{\beta^T x _ { i }}(1+e^{\beta^{T}x_i}) - x_i^T e^{\beta^T x _ { i }}e^{\beta^{T}x_i} ]}{(1+e^{\beta^T x_i})^2}
+\\=\sum _ { i = 1 } ^ { N } - x _ { i } x _ { i } ^ { \top } p \left( x _ { i } , \beta \right) \left( 1 - p \left( x _ { i } , \beta \right) \right)
+$$
+from Newton-Raphson method, $\beta^{new} = \beta^{old}-H^{-1}\cdot\nabla_{\beta} l$, 
+$$H=\sum _ { i = 1 } ^ { N } - x _ { i } x _ { i } ^ { \top } p \left( x _ { i } , \beta \right) \left( 1 - p \left( x _ { i } , \beta \right) \right)\\
+=-X^TWX\\
+\textbf{where:}\\
+X = \left[ \begin{array} { c } { X_1 \\X_2\\...\\ X_N} \end{array} \right]\\
+X_i = x _ { i } = \left[ 1, x _ { i i } \cdots, x _ { i p } \right] ^ { T }\\
+y = \left[ y _ { 1 } , \ldots , y _ { n } \right] ^ T\\
+p = \left[p(x_1,\beta),p(x_2,\beta),...,p(x_N,\beta) \right]^ T\\
+W= \left[ \begin{array} { c c c} p(x_1,\beta) & & \\ &...&\\ & & p(x_N,\beta) \end{array} \right]
+$$
+
+$\nabla_{\beta} l = X^T (y-p)$
+
+So we can have
+$$
+\beta^{new} = \beta^{old} + (X^TWX)^{-1}X^T(y-p)\\
+= (X^TWX)^{-1}X^T(y-p) Z\\
+Z= X\beta^{old} + W^{-1}(y-p)
+$$
+
+## 2
+First write the likelihood function
+$$
+\begin{aligned} p _ { \mathbf { y } } ( \mathbf { x } ) & = \operatorname { Pr } ( G = 1 | X = \mathbf { x } ) ^ { y _ { 1 } } \operatorname { Pr } ( G = 2 | X = \mathbf { x } ) ^ { y _ { 2 } } \cdots \operatorname { Pr } ( G = K - 1 | X = \mathbf { x } ) ^ { y _ { K - 1 } } \\ & \times ( 1 - \operatorname { Pr } ( G = 1 | X = \mathbf { x } ) - \operatorname { Pr } ( G = 2 | X = \mathbf { x } ) - \cdots - \operatorname { Pr } ( G = K - 1 | X = \mathbf { x } ) ) ^ { 1 - \sum _ { l = 1 } ^ { K - 1 } y _ { l } } \end{aligned}\\
+l = \sum _ { i = 1 } ^ { N } \log \left( p _ { \mathbf { y } _ { i } } \left( \mathbf { x } _ { i } \right) \right)
+$$
+
+The log likelihood can be written as:
+
+$$
+\begin{aligned} \log \left( p _ { \mathbf { y } } ( \mathbf { x } ) \right) & = y _ { 1 } \log ( \operatorname { Pr } ( G = 1 | X = x ) ) + y _ { 2 } \log ( \operatorname { Pr } ( G = 2 | X = x ) ) + \cdots + y _ { K - 1 } \log ( \operatorname { Pr } ( G = K - 1 | X = x ) ) \\ & + \left( 1 - y _ { 1 } - y _ { 2 } - \ldots - y _ { K - 1 } \right) \log ( \operatorname { Pr } ( G = K | X = x ) ) \\ & = \log ( \operatorname { Pr } ( G = K | X = x ) ) \end{aligned}\\
+\begin{array} { l } { + \quad y _ { 1 } \log \left( \frac { \operatorname { Pr } ( G = 1 | X = x ) } { \operatorname { Pr } ( G = K | X = x ) } \right) + y _ { 2 } \log \left( \frac { \operatorname { Pr } ( G = 2 | X = x ) } { \operatorname { Pr } ( G = K | X = x ) } \right) + \cdots + y _ { K - 1 } \log \left( \frac { \operatorname { Pr } ( G = K - 1 | X = x ) } { \operatorname { Pr } ( G = K | X = x ) } \right) } \\ { = \log ( \operatorname { Pr } ( G = K | X = x ) ) + y _ { 1 } \left( \beta _ { 01 } + \beta _ { 1 } ^ { T } x \right) + y _ { 2 } \left( \beta _ { 02 } + \beta _ { 2 } ^ { T } x \right) + \cdots + y _ { K - 1 } \left( \beta _ { ( K - 1 ) 0 } + \beta _ { K - 1 } ^ { T } x \right) } \end{array}
+$$
+
+Total likelihood:
+
+$$
+l ( \theta ) = \sum _ { i = 1 } ^ { N } \left[ \sum _ { l = 1 } ^ { K - 1 } y _ { i l } \beta _ { l } ^ { T } x _ { i } + \log ( \operatorname { Pr } ( G = k | X = x _ { i } ) ) \right]
+$$
+The $x_i,y_{il},\beta_l $ can be defined similarly as the last problem and l indicates class.
+$\begin{array} { l } { \operatorname { Pr } ( G = k | X = x _ { i } ) \text { is the a posteriori probability that } x _ { i } \text { comes from class } G = K \text { and } } \\ { \text { is given in terms of the parameters } \left\{ \beta _ { l } \right\} _ { l = 1 } ^ { K - 1 } \text { as } } \end{array}$
+
+$$
+\operatorname { Pr } ( G = k | X = x _ { i } ) = \frac { 1 } { 1 + \sum _ { l = 1 } ^ { K - 1 } \exp \left( \beta _ { l } ^ { T } x _ { i } \right) }
+$$
+$$
+l ( \theta ) = \sum _ { i = 1 } ^ { N } \left[ \sum _ { l = 1 } ^ { K - 1 } y _ { i l } \beta _ { l } ^ { T } x _ { i } - \log \left( 1 + \sum _ { l = 1 } ^ { K - 1 } \exp \left( \beta _ { l } ^ { T } x _ { i } \right) \right) \right]
+$$
+
+use the Newton-Raphson algorithm in terms of $\theta$
+$$
+\theta ^ { \mathrm { new } } = \theta ^ { \mathrm { old } } - \left( \frac { \partial ^ { 2 } l ( \theta ) } { \partial \theta \partial \theta ^ { T } } \right) ^ { - 1 } \frac { \partial l ( \theta ) } { \partial \theta }
+$$
+
+$$
+\begin{aligned} \frac { \partial l ( \theta ) } { \partial \beta _ { l } } & = \sum _ { i = 1 } ^ { N } y _ { i l } \mathbf { x } _ { i } - \frac { \exp \left( \beta _ { l } ^ { T } \mathbf { x } _ { i } \right) } { 1 + \sum _ { l ^ { \prime } = 1 } ^ { K - 1 } \exp \left( \beta _ { l ^ { \prime } } ^ { T } \mathbf { x } _ { i } \right) } \mathbf { x } _ { i } \\ & = \sum _ { i = 1 } ^ { N } \left( y _ { i l } - \operatorname { Pr } ( G = l | X = \mathbf { x } _ { i } ) \right) \mathbf { x } _ { i } \end{aligned}
+$$
+
+$\frac { \partial l ( \theta ) } { \partial \theta }$ can be written as 
+
+$$
+\left[ \begin{array} { c } { \frac { \partial l } { \partial \beta _ { 1 } } } \\ { \frac { \partial l } { \partial \beta _ { 2 } } } \\ { \vdots } \\ { \frac { \partial l } { \partial \beta _ { K - 1 } } } \end{array} \right]
+$$
+So we have 
+$$
+\frac { \partial l ( \theta ) } { \partial \beta _ { l } } = \sum _ { i = 1 } ^ { N } y _ { i l } \mathbf { x } _ { i } - \sum _ { i = 1 } ^ { N } \operatorname { Pr } ( G = l | X = \mathbf { x } _ { i } ) \mathbf { x } _ { i }
+$$
+Define $m_l \text{ and } p_l $
+$$
+\mathbf { t } _ { l } = \left[ \begin{array} { c } { y _ { 1 , l } } \\ { y _ { 2 , l } } \\ { \vdots } \\ { y _ { N , l } } \end{array} \right] \text { and } \mathbf { p } _ { l } = \left[ \begin{array} { c } { \operatorname { Pr } ( G = l | X = \mathbf { x } _ { 1 } ) } \\ { \operatorname { Pr } ( G = l | X = \mathbf { x } _ { 2 } ) } \\ { \vdots } \\ { \operatorname { Pr } ( G = l | X = \mathbf { x } _ { N } ) } \end{array} \right]
+$$
+$\mathbf { X } ^ { T } \mathbf { t } _ { l } - \mathbf { X } ^ { T } \mathbf { p } _ { l } = \mathbf { X } ^ { T } \left( \mathbf { t } _ { l } - \mathbf { p } _ { l } \right)$
+
+Similarly, we have 
+$$
+\frac { \partial l ( \theta ) } { \partial \theta } = \left[ \begin{array} { c } { \mathbf { X } ^ { T } \left( \mathbf { t } _ { 1 } - \mathbf { p } _ { 1 } \right) } \\ { \mathbf { X } ^ { T } \left( \mathbf { t } _ { 2 } - \mathbf { p } _ { 2 } \right) } \\ { \vdots } \\ { \mathbf { X } ^ { T } \left( \mathbf { t } _ { K - 1 } - \mathbf { p } _ { K - 1 } \right) } \end{array} \right] = \left[ \begin{array} { c c c c } { \mathbf { X } ^ { T } } & { 0 } & { \cdots } & { 0 } \\ { 0 } & { \mathbf { X } ^ { T } } & { \cdots } & { 0 } \\ { \vdots } & { \vdots } & { \ddots } & { \vdots } \\ { 0 } & { 0 } & { \cdots } & { \mathbf { X } ^ { T } } \end{array} \right] \left[ \begin{array} { c } { \mathbf { t } _ { 1 } - \mathbf { p } _ { 1 } } \\ { \mathbf { t } _ { 2 } - \mathbf { p } _ { 2 } } \\ { \vdots } \\ { \mathbf { t } _ { K - 1 } - \mathbf { p } _ { K - 1 } } \end{array} \right]
+$$
+
+define the first matrix on the last equation as $\hat { \mathbf { X } } ^T$
+
+$$
+\hat { \mathbf { X } } ^ { T } \equiv \left[ \begin{array} { c c c c } { \mathbf { X } ^ { T } } & { 0 } & { \cdots } & { 0 } \\ { 0 } & { \mathbf { X } ^ { T } } & { \cdots } & { 0 } \\ { \vdots } & { \vdots } & { \ddots } & { \vdots } \\ { 0 } & { 0 } & { \cdots } & { \mathbf { X } ^ { T } } \end{array} \right]
+$$
+and we have secondary derivative of $l(\theta)$
+
+$$
+\text { for } l \neq l ^ { \prime },\\ \frac { \partial ^ { 2 } l ( \theta ) } { \partial \beta _ { l } \partial \beta _ { l ^ { \prime } } ^ { T } } = - \sum _ { i = 1 } ^ { N } \operatorname { Pr } ( G = l | X = \mathbf { x } _ { i } ) \operatorname { Pr } \left( G = l ^ { \prime } | X = \mathbf { x } _ { i } \right) \mathbf { x } _ { i } ^ { T } \mathbf { x } _ { i } 
+$$
+
+$$
+\text { for } l = l ^ { \prime }, \\
+\frac { \partial \operatorname { Pr } ( G = l | X = \mathbf { x } _ { i } ) } { \partial \beta _ { l ^ { \prime } } ^ { T } } = \frac { \partial } { \partial \beta _ { l ^ { \prime } } ^ { T } } \left( \frac { e ^ { \beta _ { l ^ { \prime } } \mathbf { x } _ { i } } } { 1 + \sum _ { l ^ { \prime \prime } = 1 } ^ { K - 1 } e ^ { \beta _ { l ^ { \prime } } \mathbf { x } _ { i } } } \right)\\
+= \operatorname { Pr } \left( G = l ^ { \prime } | X = \mathbf { x } _ { i } \right) \left( 1 - \operatorname { Pr } \left( G = l ^ { \prime } | X = \mathbf { x } _ { i } \right) \right) \mathbf { x } _ { i }
+
+$$
+Together we have 
+$\frac { \partial ^ { 2 } l ( \theta ) } { \partial \beta _ { l } \partial \beta _ { l } ^ { T } } = - \sum _ { i = 1 } ^ { N } \operatorname { Pr } ( G = l | X = \mathbf { x } _ { i } ) ( 1 - \operatorname { Pr } ( G = l | X = \mathbf { x } _ { i } ) ) \mathbf { x } _ { i } ^ { T } \mathbf { x } _ { i }$
+
+$$
+\frac { \partial ^ { 2 } l ( \theta ) } { \partial \theta \partial \theta ^ { T } } = \left[ \begin{array} { c c c c } { \frac { \partial ^ { 2 } l } { \partial \beta _ { 1 } \partial \beta _ { 1 } ^ { T } } } & { \frac { \partial ^ { 2 } l } { \partial \beta _ { l } \partial \beta _ { 2 } ^ { T } } } & { \cdots } & { \frac { \partial ^ { 2 } l } { \partial \beta _ { l } \partial \beta _ { K - 1 } ^ { T } } } \\ { \frac { \partial ^ { 2 } l } { \partial \beta _ { 2 } \partial \beta _ { 1 } ^ { T } } } & { \frac { \partial ^ { 2 } l } { \partial \beta _ { 2 } \partial \beta _ { 2 } ^ { T } } } & { \cdots } & { \frac { \partial ^ { 2 } l } { \partial \beta _ { 2 } \partial \beta _ { K - 1 } ^ { T } } } \\ { \vdots } & { \vdots } & { \ddots } & { \vdots } \\ { \frac { \partial ^ { 2 } l } { \partial \beta _ { K - 1 } \partial \beta _ { 1 } ^ { T } } } & { \frac { \partial ^ { 2 } l } { \partial \beta _ { K - 1 } \partial \beta _ { 2 } ^ { T } } } & { \cdots } & { \frac { \partial ^ { 2 } l } { \partial \beta _ { K - 1 } \partial \beta _ { K - 1 } ^ { T } } } \end{array} \right]
+$$
+
+
+$$
+\text{ Denote  }K - 1 , N \times N \text { diagonal matrices } \mathbf { Q } _ { l } \text { for }\\
+ 1 \leq l \leq K - 1 \text { with diagonal elements given by } \operatorname { Pr } ( G = l | X = \mathbf { x } _ { i } ) ( 1 - \operatorname { Pr } ( G = l | X = \mathbf { x } _ { i } ) ) \\ \text { where } 1 \leq i \leq N .  
+  \\\frac { \partial ^ { 2 } l ( \theta ) } { \partial \theta \partial \theta ^ { T } }=- \mathbf { X } ^ { T } \mathbf { Q } _ { l } \mathbf { X }
+$$
+$$
+\begin{array} { l } { \text { We next introduce } K - 1 , N \times N \text { diagonal matrices } \mathbf { R } _ { l } \text { for } 1 \leq l \leq K - 1 \text { with diagonal } } \\ { \text { elements given by } \operatorname { Pr } \left( G = \mathbf { x } _ { i } \right) \text { where } 1 \leq i \leq N . \text { Then with these definitions we can } } \\ { \text { write } \frac { \partial ^ { 2 } l ( \theta ) } { \partial \theta \partial \theta ^ { T } } \text {  in matrix form by } } \end{array}\\
+\frac { \partial ^ { 2 } l ( \theta ) } { \partial \beta _ { l } \partial \beta _ { l } ^ { T } } = - \mathbf { X } ^ { T } \mathbf { R } _ { l } \mathbf { R } _ { l ^ { \prime } } \mathbf { X }
+$$
+
+Hessian can be written as 
+$$
+\frac { \partial ^ { 2 } l ( \theta ) } { \partial \theta \partial \theta ^ { T } } = \left[ \begin{array} { c c c c } { - \mathbf { X } ^ { T } \mathbf { Q } _ { 1 } \mathbf { X } } & { - \mathbf { X } ^ { T } \mathbf { R } _ { 1 } \mathbf { R } _ { 2 } \mathbf { X } } & { \cdots } & { - \mathbf { X } ^ { T } \mathbf { R } _ { 1 } \mathbf { R } _ { K - 1 } \mathbf { X } } \\ { - \mathbf { X } ^ { T } \mathbf { R } _ { 2 } \mathbf { R } _ { 1 } \mathbf { X } } & { - \mathbf { X } ^ { T } \mathbf { Q } _ { 2 } \mathbf { X } } & { \cdots } & { - \mathbf { X } ^ { T } \mathbf { R } _ { 2 } \mathbf { R } _ { K - 1 } \mathbf { X } } \\ { \vdots } & { } & { \ddots } & { \vdots } \\ { - \mathbf { X } ^ { T } \mathbf { R } _ { K - 1 } \mathbf { R } _ { 1 } \mathbf { X } } & { - \mathbf { X } ^ { T } \mathbf { R } _ { K - 1 } \mathbf { R } _ { 2 } \mathbf { X } } & { \cdots } & { - \mathbf { X } ^ { T } \mathbf { Q } _ { K - 1 } \mathbf { X } } \end{array} \right]\\
+=
+- \left[ \begin{array} { c c c c } { \mathbf { X } ^ { T } } & { 0 } & { \cdots } & { 0 } \\ { 0 } & { \mathbf { X } ^ { T } } & { \cdots } & { 0 } \\ { \vdots } & { \vdots } & { \ddots } & { \vdots } \\ { 0 } & { 0 } & { \cdots } & { \mathbf { X } ^ { T } } \end{array} \right] \left[ \begin{array} { c c c c } { \mathbf { Q } _ { 1 } } & { \mathbf { R } _ { 1 } \mathbf { R } _ { 2 } } & { \cdots } & { \mathbf { R } _ { 1 } \mathbf { R } _ { K - 1 } } \\ { \mathbf { R } _ { 2 } \mathbf { R } _ { 1 } } & { \mathbf { Q } _ { 2 } } & { \cdots } & { \mathbf { R } _ { 2 } \mathbf { R } _ { K - 1 } } \\ { \vdots } & { } & { \ddots } & { \vdots } \\ { 0 } & { 0 } & { \cdots } & { \mathbf { X } ^ { T } } \end{array} \right] \left[ \begin{array} { c c c c } { \mathbf { Q } _ { 1 } } & { \mathbf { R } _ { 1 } \mathbf { R } _ { 2 } } & { \cdots } & { \mathbf { R } _ { 1 } \mathbf { R } _ { K - 1 } } \\ { 0 } & { \mathbf { Q } _ { 2 } } & { \cdots } & { \mathbf { R } _ { 2 } \mathbf { R } _ { K - 1 } } \\ { \vdots } & { \vdots } & { \ddots } & { \vdots } \\ { 0 } & { 0 } & { \cdots } & { \mathbf { X } } \end{array} \right]
+$$
+Define W as 
+
+$$
+\mathbf { W } \equiv \left[ \begin{array} { c c c c } { \mathbf { Q } _ { 1 } } & { \mathbf { R } _ { 1 } \mathbf { R } _ { 2 } } & { \cdots } & { \mathbf { R } _ { 1 } \mathbf { R } _ { K - 1 } } \\ { \mathbf { R } _ { 2 } \mathbf { R } _ { 1 } } & { \mathbf { Q } _ { 2 } } & { \cdots } & { \mathbf { R } _ { 2 } \mathbf { R } _ { K - 1 } } \\ { \vdots } & { } & { \ddots } & { \vdots } \\ { \mathbf { R } _ { K - 1 } \mathbf { R } _ { 1 } } & { \mathbf { R } _ { K - 1 } \mathbf { R } _ { 2 } } & { \cdots } & { \mathbf { Q } _ { K - 1 } } \end{array} \right]\\
+\text{we can rewrite as:} \\
+\frac { \partial ^ { 2 } l ( \theta ) } { \partial \theta \partial \theta ^ { T } } = - \hat { \mathbf { X } } ^ { T } \mathbf { W } \hat { \mathbf { X } }
+$$
+
+Now we can have the updating algorithm as 
+$$
+\theta ^ { \text { new } } = \theta ^ { \text { old } } + \left( \hat { \mathbf { X } } ^ { T } \mathbf { W } \hat { \mathbf { X } } \right) ^ { - 1 } \hat { \mathbf { X } } ^ { T } \left[ \begin{array} { c } { \mathbf { t } _ { 1 } - \mathbf { p } _ { 1 } } \\ { \mathbf { t } _ { 2 } - \mathbf { p } _ { 2 } } \\ { \vdots } \\ { \mathbf { t } _ { K - 1 } - \mathbf { p } _ { K - 1 } } \end{array} \right]
+\\=\left( \hat { \mathbf { X } } ^ { T } \mathbf { W } \hat { \mathbf { X } } \right) ^ { - 1 } \hat { \mathbf { X } } ^ { T } \mathbf { W } \left( \hat { \mathbf { X } } \theta ^ { \mathrm { old } } + \mathbf { W } ^ { - 1 } \left[ \begin{array} { c } { \mathbf { t } _ { 1 } - \mathbf { p } _ { 1 } } \\ { \mathbf { t } _ { 2 } - \mathbf { p } _ { 2 } } \\ { \vdots } \\ { \mathbf { t } _ { K - 1 } - \mathbf { p } _ { K - 1 } } \end{array} \right] \right)\\=
+\mathbf { z } \equiv \hat { \mathbf { X } } \theta ^ { \mathrm { old } } + \mathbf { W } ^ { - 1 } \left[ \begin{array} { c } { \mathbf { t } _ { 1 } - \mathbf { p } _ { 1 } } \\ { \mathbf { t } _ { 2 } - \mathbf { p } _ { 2 } } \\ { \vdots } \\ { \mathbf { t } _ { K - 1 } - \mathbf { p } _ { K - 1 } } \end{array} \right]
+$$
+
+
+## 3
+The likelihood function:
+$$
+\Pi_{i=1}^{n} p(y_i|x_i,\beta) = \Pi_{i=1}^{n}(2\pi)^{\frac{-k}{2}}|\Sigma|^{-\frac{1}{2}}(-\frac{1}{2}
+(y_i-x_i^T\beta)^T |\Sigma|^{-1} (y_i-x_i^T\beta))
+\text{log likelihood function: }\\
+\sum_{i=1}^{n} [-\frac{k}{2}log(2\pi) - \frac{1}{2}log|\Sigma|+ log(-\frac{1}{2}
+(y_i-x_i^T\beta)^T |\Sigma|^{-1} (y_i-x_i^T\beta))  ]
+$$
+When maximized, $(y_i-x_i^T\beta)^T |\Sigma|^{-1} (y_i-x_i^T\beta)$ becomes $\frac{RSS}{\sigma^2}$
+we have max log-ll as :
+$$
+\frac{nk}{2}llog(2\pi) - \frac{nk}{2}llog(\hat \sigma^2)-\frac{1}{2\hat \sigma^2}RSS\\
+AIC  = - 2 \cdot \text{log-likelihood} +2(k+1)
+$$
+AIC only depends on RSS and d, we can write AIC as $-2(-\frac{1}{2\hat \sigma^2 }RSS +2d)=\frac{1}{\hat \sigma^2 }RSS +2d$
+
+
+## 4
+One of the problems is that there are so many redundant features to be preselected. L1-regularized model will decrease most of the features' weights to zero and the remaining features' weights are very small. It's hard to compare the feature importance. And the model could not consider the correlation of the features to remove redundance. 
+What's more, the model has a potential to be overfitting. The label of the data is determined by the independent variable. Which will lead to serious overfitting that the prediction highly rely on the $x_{MI}$, which is not proper.

@@ -1,0 +1,104 @@
+---
+title: "HomeWork2"
+author: "Chen Xupeng"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+## 1 
+
+$$
+\hat y(x) =\arg \max_k P(Y=k|x) \\=\arg \max_k  \frac {  { P } ( X = x | Y = k ) { P } ( Y = k ) } { \sum _ { j } { P } ( X = x | Y = j )  { P } ( Y = j ) }\\
+=\arg \max_k   P(X=x|Y=k)P(Y=k) =\arg \max_k f_k(x)\pi_k\\
+\text{we can have:}\\
+ f_k(x) = \frac {1} { ( 2 \pi ) ^ { p / 2 } | \mathbf { \Sigma } | ^ { 1 / 2 } } e ^ { - \frac { 1 } { 2 } \left( x - \mu _ { k } \right) ^ { T } \mathbf { \Sigma } ^ { - 1 } \left( x - \mu _ { k } \right) }\\
+\arg \max_k f_k(x)\pi_k \textbf{ equals to: } (\arg \max_k \log \pi _ { k } + x ^ { T } \Sigma ^ { - 1 } \mu _ { k } - \frac { 1 } { 2 } \mu _ { k } ^ { T } \Sigma ^ { - 1 } \mu _ { k })\\
+=\arg \max_k  \delta _ { k } ( x )
+$$
+
+
+## 2
+### 2.1
+assigned to class2 means:
+$$
+P(Y=Y_2 | X) >P(Y=Y_1 | X) \\ 
+\Rightarrow P(X|Y=Y_2)P(Y=Y_2) > P(X|Y=Y_1)P(Y=Y_1)\\
+\Rightarrow logP(X|Y=Y_2)+logP(Y=Y_2) > logP(X|Y=Y_1)+logP(Y=Y_1)\\
+\Rightarrow -\frac{1}{2}(X-\hat \mu_2)^T\Sigma^{-1}(X-\hat \mu_2)+log N_2 > -\frac{1}{2}(X-\hat \mu_1)^T\Sigma^{-1}(X-\hat \mu_1)+log N_1\\
+\Rightarrow x ^ { T } \Sigma ^ { - 1 } \left( \hat { \mu } _ { 2 } - \hat { \mu } _ { 1 } \right) > \frac { 1 } { 2 } \left( \hat { \mu } _ { 2 } + \hat { \mu } _ { 1 } \right) \Sigma ^ { - 1 } \left( \hat { \mu } _ { 2 } - \hat { \mu } _ { 1 } \right) - \log \left( N _ { 2 } / N _ { 1 } \right)
+$$
+### 2.2
+To minimize the expression $\sum _ { i = 1 } ^ { N } \left( y _ { i } - \beta _ { 0 } - \beta ^ { T } x _ { i } \right) ^ { 2 }$)2 over $\left( \beta _ { 0 } , \beta \right) ^ { \prime }$ the solution should satisfy:
+$$
+X ^ { T } X \left[ \begin{array} { c } { \beta _ { 0 } } \\ { \beta } \end{array} \right] = X ^ { T } \mathbf { y }
+$$
+
+lock matrix $X^T X$ on the left-hand-side:
+
+$$
+\left[ \begin{array} { c c c c c c c } { 1 } & { 1 } & { \cdots } & { 1 } & { 1 } & { \ldots } & { 1 } \\ { x _ { 1 } } & { x _ { 2 } } & { \cdots } & { x _ { N _ { 1 } } } & { x _ { N _ { 1 } + 1 } } & { x _ { N _ { 1 } + 2 } } & { \cdots } & { x _ { N _ { 1 } + N _ { 2 } } } \end{array} \right] \left[ \begin{array} { c c } { 1 } & { x _ { 1 } ^ { T } } \\ { 1 } & { x _ { 2 } ^ { T } } \\ { \vdots } & { x _ { 2 } ^ { T } } \\ { 1 } & { x _ { N _ { 1 } + 1 } ^ { T } } \\ { 1 } & { x _ { N _ { 1 } + 2 } ^ { T } } \\ { \vdots } & { } \\ { 1 } & { x _ { N _ { 1 } + N _ { 2 } } ^ { T } } \end{array} \right]
+\\
+\Rightarrow
+\left[ \begin{array} { c c } { N } & { \sum _ { i = 1 } ^ { N } x _ { i } ^ { T } } \\ { \sum _ { i = 1 } ^ { N } x _ { i } } & { \sum _ { i = 1 } ^ { N } x _ { i } x _ { i } ^ { T } } \end{array} \right]
+$$
+code our response as $- \frac { N } { N _ { 1 } }$ for the first class and $- \frac { N } { N _ { 2 } }$ for the second class. right-hand-side or $X^T y$ of the normal equations becomes:
+$$
+\left[ \begin{array} { c c c c c c c } { 1 } & { 1 } & { \cdots } & { 1 } & { 1 } & { \ldots } & { 1 } \\ { x _ { 1 } } & { x _ { 2 } } & { \cdots } & { x _ { N _ { 1 } } } & { x _ { N _ { 1 } + 1 } } & { x _ { N _ { 1 } + 2 } } & { \cdots } & { x _ { N _ { 1 } + N _ { 2 } } } \end{array} \right] \left[ \begin{array} { c } { - N / N _ { 1 } } \\ { - N / N _ { 1 } } \\ { \vdots } \\ { - N / N _ { 1 } } \\ { N / N _ { 2 } } \\ { N / N _ { 2 } } \\ { \vdots } \\ { N / N _ { 2 } } \end{array} \right]
+$$
+the product of these two matrices:
+$$
+\left[ \begin{array} { c } { N _ { 1 } \left( - \frac { N } { N _ { 1 } } \right) + N _ { 2 } \left( \frac { N } { N _ { 2 } } \right) } \\ { \left( \sum _ { i = 1 } ^ { N _ { 1 } } x _ { i } \right) \left( - \frac { N } { N _ { 1 } } \right) + \left( \sum _ { i = N _ { 1 } + 1 } ^ { N } x _ { i } \right) \left( \frac { N } { N _ { 2 } } \right) } \end{array} \right] = \left[ \begin{array} { c } { 0 } \\ { - N \mu _ { 1 } + N \mu _ { 2 } } \end{array} \right]
+$$
+$$
+\sum _ { i = 1 } ^ { N } x _ { i } = \sum _ { i = 1 } ^ { N _ { 1 } } x _ { i } + \sum _ { i = N _ { 1 } + 1 } ^ { N } x _ { i } = N _ { 1 } \mu _ { 1 } + N _ { 2 } \mu _ { 2 }
+$$
+estimate the pooled covariance matrix $\hat \Sigma$
+
+$$
+\hat { \Sigma } = \frac { 1 } { N - K } \sum _ { k = 1 } ^ { K } \sum _ { i : g _ { i } = k } \left( x _ { i } - \mu _ { k } \right) \left( x _ { i } - \mu _ { k } \right) ^ { T }
+$$
+K = 2:
+$$
+\begin{aligned} \hat { \Sigma } & = \frac { 1 } { N - 2 } \left[ \sum _ { i : g _ { i } = 1 } \left( x _ { i } - \mu _ { 1 } \right) \left( x _ { i } - \mu _ { 1 } \right) ^ { T } + \sum _ { i : g _ { i } = 2 } \left( x _ { i } - \mu _ { 2 } \right) \left( x _ { i } - \mu _ { 2 } \right) ^ { T } \right] \\ & = \frac { 1 } { N - 2 } \left[ \sum _ { i : g _ { i } = 1 } x _ { i } x _ { i } ^ { T } - N _ { 1 } \mu _ { 1 } \mu _ { 1 } ^ { T } + \sum _ { i : g _ { i } = 1 } x _ { i } x _ { i } ^ { T } - N _ { 2 } \mu _ { 2 } \mu _ { 2 } ^ { T } \right] \end{aligned}
+$$
+
+we can have the sum $\sum _ { i = 1 } ^ { N } x _ { i } x _ { i } ^ { T }$
+$$
+\sum _ { i = 1 } ^ { N } x _ { i } x _ { i } ^ { T } = ( N - 2 ) \hat { \Sigma } + N _ { 1 } \mu _ { 1 } \mu _ { 1 } ^ { T } + N _ { 2 } \mu _ { 2 } \mu _ { 2 } ^ { T }
+$$
+
+$$
+\left[ \begin{array} { c c } { N } & { N _ { 1 } \mu _ { 1 } ^ { T } + N _ { 2 } \mu _ { 2 } ^ { T } } \\ { N _ { 1 } \mu _ { 1 } + N _ { 2 } \mu _ { 2 } } & { ( N - 2 ) \hat { \Sigma } + N _ { 1 } \mu _ { 1 } \mu _ { 1 } ^ { T } + N _ { 2 } \mu _ { 2 } \mu _ { 2 } ^ { T } } \end{array} \right] \left[ \begin{array} { c } { \beta _ { 0 } } \\ { \beta } \end{array} \right] = \left[ \begin{array} { c } { 0 } \\ { - N \mu _ { 1 } + N \mu _ { 2 } } \end{array} \right]
+$$
+For the first equation can be written as:
+$$
+N \beta _ { 0 } + \left( N _ { 1 } \mu _ { 1 } ^ { T } + N _ { 2 } \mu _ { 2 } ^ { T } \right) \beta = 0\\
+\beta _ { 0 } = \left( - \frac { N _ { 1 } } { N } \mu _ { 1 } ^ { T } - \frac { N _ { 2 } } { N } \mu _ { 2 } ^ { T } \right) \beta
+$$
+Putting $\beta _ { 0 } $ in we can have $\beta $:
+$$
+\left( N _ { 1 } \mu _ { 1 } + N _ { 2 } \mu _ { 2 } \right) \left( - \frac { N _ { 1 } } { N } \mu _ { 1 } ^ { T } - \frac { N _ { 2 } } { N } \mu _ { 2 } ^ { T } \right) \beta + \left( ( N - 2 ) \hat { \Sigma } + N _ { 1 } \mu _ { 1 } \mu _ { 1 } ^ { T } + N _ { 2 } \mu _ { 2 } \mu _ { 2 } ^ { T } \right) \beta = N \left( \mu _ { 2 } - \mu _ { 1 } \right)
+$$
+
+Consider the terms of the vectors $\mu_i$:
+$$
+- \frac { N _ { 1 } ^ { 2 } } { N } \mu _ { 1 } \mu _ { 1 } ^ { T } - \frac { 2 N _ { 1 } N _ { 2 } } { N } \mu _ { 1 } \mu _ { 2 } ^ { T } - \frac { N _ { 2 } ^ { 2 } } { N } \mu _ { 2 } \mu _ { 2 } ^ { T } + N _ { 1 } \mu _ { 1 } \mu _ { 2 } ^ { T } + N _ { 2 } \mu _ { 2 } \mu _ { 2 } ^ { T }\\
+= \left( - \frac { N _ { 1 } ^ { 2 } } { N } + N _ { 1 } \right) \mu _ { 1 } \mu _ { 1 } ^ { T } - \frac { 2 N _ { 1 } N _ { 2 } } { N } \mu _ { 1 } \mu _ { 2 } ^ { T } + \left( - \frac { N _ { 2 } ^ { 2 } } { N } + N _ { 2 } \right) \mu _ { 2 } \mu _ { 2 } ^ { T }\\
+=\frac { N _ { 1 } } { N } \left( - N _ { 1 } + N \right) \mu _ { 1 } \mu _ { 1 } ^ { T } - \frac { 2 N _ { 1 } N _ { 2 } } { N } \mu _ { 1 } \mu _ { 2 } ^ { T } + \frac { N _ { 2 } } { N } \left( - N _ { 2 } + N \right) \mu _ { 2 } \mu _ { 2 } ^ { T }\\
+=\frac { N _ { 1 } N _ { 2 } } { N } \mu _ { 1 } \mu _ { 1 } ^ { T } - \frac { 2 N _ { 1 } N _ { 2 } } { N } \mu _ { 1 } \mu _ { 2 } ^ { T } + \frac { N _ { 2 } N _ { 1 } } { N } \mu _ { 2 } \mu _ { 2 } ^ { T }\\
+=\frac { N _ { 1 } N _ { 2 } } { N } \left( \mu _ { 1 } \mu _ { 1 } ^ { T } - 2 \mu _ { 1 } \mu _ { 2 } - \mu _ { 2 } \mu _ { 2 } \right) = \frac { N _ { 1 } N _ { 2 } } { N } \left( \mu _ { 1 } - \mu _ { 2 } \right) \left( \mu _ { 1 } - \mu _ { 2 } \right) ^ { T }
+$$
+If we use $\hat { \Sigma } _ { B } = \frac { N _ { 1 } N _ { 2 } } { N ^ { 2 } } \left( \hat { \mu } _ { 2 } - \hat { \mu } _ { 1 } \right) \left( \hat { \mu } _ { 2 } - \hat { \mu } _ { 1 } \right) ^ { T }$, we can have: $\left[ ( N - 2 ) \hat { \Sigma } + N \hat { \Sigma } _ { B } \right] \beta = N \left( \hat { \mu } _ { 2 } - \hat { \mu } _ { 1 } \right)$
+
+
+
+
+
+### 2.3
+
+Note that $\hat { \Sigma } _ { B } \beta \text { is } \frac { N _ { 1 } N _ { 2 } } { N ^ { 2 } }\left( \mu _ { 2 } - \mu _ { 1 } \right) \left( \mu _ { 2 } - \mu _ { 1 } \right) ^ { T } \beta$, and the product $\left( \mu _ { 2 } - \mu _ { 1 } \right) ^ { T } \beta$ is a scalar.Therefore the vector direction of $\hat { \Sigma } _ { B } \beta$ is given by $\mu _ { 2 } - \mu _ { 1 }$. Thus in $\left[ ( N - 2 ) \hat { \Sigma } + N \hat { \Sigma } _ { B } \right] \beta = N \left( \hat { \mu } _ { 2 } - \hat { \mu } _ { 1 } \right)$ as both the right-hand-side and the term $ N \hat { \Sigma } _ { B }$ are in the direction of $\mu _ { 2 } - \mu _ { 1 }$ the solution $β$ must be proportional to $\hat { \Sigma } ^ { - 1 } \left( \mu _ { 2 } - \mu _ { 1 } \right)$.
+
+## 3
+Both Bayes optimal classiﬁer and the naive Bayes classiﬁer follow Bayes rule.The naive Bayes classifier is an approximation to the Bayes classifier, in which we assume that the features are conditionally independent given the class instead of modeling their full conditional distribution given the class. ($\begin{aligned} P ( \mathbf { X } [ 1 ] , \mathbf { X } [ 2 ] | Y ) & = P ( \mathbf { X } [ 1 ] | \mathbf { X } [ 2 ] , Y ) P ( \mathbf { X } [ 2 ] | Y )  = P ( \mathbf { X } [ 1 ] | Y ) P ( \mathbf { X } [ 2 ] | Y ) \end{aligned}$). For NB, its prior probability also needs to be estimated.

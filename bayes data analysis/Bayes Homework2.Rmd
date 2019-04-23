@@ -1,0 +1,65 @@
+---
+title: "Homework2"
+author: "Chen Xupeng"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+
+# 1 
+It is true that a nonlinear transformation of a normal distribution is no longer normal. as $n \rightarrow \infty, Var(\theta|y) \rightarrow 0$ can still hold local linearity property. So for local one-to-one transformation, as $n \rightarrow \infty, \phi|y \sim Normal$
+
+## 2
+assume for simplicity that the posterior distribution is continuous and that needed moments exist.
+
+### a
+
+$$
+E ( L ( a | y ) ) = \int ( \theta - a ) ^ { 2 } P ( \theta | y ) d \theta\\
+\Rightarrow \frac { d E } { d \theta } = 2 \int ( \theta - a ) p ( \theta | y ) d \theta = 0\\
+\Rightarrow \int \theta [ \theta | y ) d \theta - a \cdot \int p ( \theta | y ) d \theta d = 0\\
+\Rightarrow a = E ( \theta | y )
+$$
+### b
+
+$$
+\begin{array} { l } {  E \left( L ( a | y ) = \int 1 \theta - \alpha | p ( \theta | y ) d \theta \right. } \\ { = \int _ { - \infty } ^ { a } ( a - \theta ) p ( \theta | y ) d \theta + \int _ { 0 } ^ { \infty } ( \theta - a ) p ( \theta | y ) d \theta } \end{array}
+$$
+We can have:
+$$
+\frac{dE}{da}=\int _ { - \infty } ^ { a } p _ { ( \theta | y ) } d \theta - \int _ { a } ^ { \infty } p ( \theta | y ) d \theta = 0\\
+\text{so that a is median of }\theta|y
+$$
+### c
+
+similarly we have:
+$$
+\frac{dE}{da}=k_1 \int _ { - \infty } ^ { a } p _ { ( \theta | y ) } d \theta - k_0\int _ { a } ^ { \infty } p ( \theta | y ) d \theta = 0\\
+$$
+We have that $p ( \theta | y )  $ is $\frac { k _ { 0 } } { k _ { 0 } + k _ { 1 } }$ quantile, from c we can also have the conclusio of b
+
+## 3 
+Unbiasedness: $\mathrm { E } ( \mathrm { E } ( \theta | y )| \theta ) = \theta$
+$$
+E ( \theta \mathrm { E } ( \theta | y ) ) = \mathrm { E } [ \mathrm { E } ( \theta \mathrm { E } ( \theta | y ) | \theta ) ] = \mathrm { E } \left[ \theta ^ { 2 } \right]\\
+\text{At the same time}\\
+E ( \theta \mathrm { E } ( \theta | y ) ) =\mathrm { E } [ \mathrm { E } ( \theta  \mathrm { E } ( \theta | y ) | y ) ] = \mathrm { E } \left[  \mathrm { E } ( \theta | y )^ { 2 } \right]
+$$
+It mush follows that $\mathrm { E } \left[ (  \mathrm { E } ( \theta | y ) - \theta ) ^ { 2 } \right] = 0$ which assumes $\theta$ is constant.
+
+## 4
+$$
+p(\mu,\sigma^2|y) \propto \sigma^{-n-2} exp\{- \frac { 1 } { 2 \sigma ^ { 2 } } \left[ ( n - 1 ) s ^ { 2 } + n ( \overline { y } - \mu ) ^ { 2 } \right]\}\\
+logp(\mu,\sigma^2|y) = - \frac { ( n + 2 ) } { 2 } \log \sigma ^ { 2 } - \frac { 1 } { 2 \sigma ^ { 2 } } \left[ ( n - 1 ) s ^ { 2 } + n ( \overline { y } - \mu ) ^ { 2 } \right]\\
+\frac { d } { d \mu } \log p = \frac { n \left( y ^ { 2 } - \mu \right) } { \sigma ^ { 2 } }\\
+\frac { d } { d \sigma ^ { 2 } } \log p = - \left( \frac { n } { 2 } + 1 \right) \cdot \frac { 1 } { \sigma ^ { 2 } } + \frac { 1 } { 2 \left( \sigma ^ { 2 } \right) ^ { 2 } } \left[ ( n - 1 ) s ^ { 2 } + n ( \overline { y } - \mu ) ^ { 2 } \right]
+$$
+So we have $\hat \mu = \bar y, \ \hat \sigma^2 = \frac{(n-1)s^2}{n+2}$
+To derive $I(\theta)$,calculate derivatives of logp with respecitives to $d\mu^2,d(\sigma^2)^2,d\mu d\sigma^2$
+
+$$
+I ( \hat { \theta } ) = \left[ \begin{array} { c c } {\frac { n } { \sigma ^ { 2 } } } & { 0 } \\ { 0 , } & { \frac { ( n + 2 ) ^ { 3 } } { 2 ( n - 1 ) ^ { 2 } s ^ { 4 } } } \end{array} \right]\\
+p(\mu,\sigma^2|y) \sim N \left( \left( \begin{array} { l } { \hat { \mu } } \\ { \hat { \sigma } ^ { 2 } } \end{array} \right) \cdot I ^ { - 1 } ( \theta ) \right)\\
+= N \left( \left( \begin{array} { l } { \bar y } \\ {\frac{(n-1)s^2}{n+2} } \end{array} \right) \cdot \left[ \begin{array} { c c } {  \frac { \sigma ^ { 2 }} { n  } } & { 0 } \\ { 0 , } & { \frac { 2 ( n - 1 ) ^ { 2 } s ^ { 4 } } { ( n + 2 ) ^ { 3 } } } \end{array} \right] \right)
+$$

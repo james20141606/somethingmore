@@ -1,0 +1,129 @@
+---
+title: "Financial Statistics Homework1"
+author: "Chen Xupeng"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# 1
+$$
+\begin{array} { l } { \left( 10 ^ { \prime } \right) \text { Generate a random sample of size } 100 \text { from the } t \text { -distribution with } \nu \text { degrees of } } \\ { \text { freedom for } \nu = 5,15 \text { and } \infty ( \text { i.e., normal distribution). Apply the Jarque-Bera test to } } \\ { \text { check for the normality and report the } p \text { -values. } } \end{array}
+$$
+```{r}
+library(tseries)
+set.seed(100)
+sample_t_5 = rt(100,5,ncp=0)
+sample_t_10 = rt(100,10,ncp=0)
+sample_norm = rnorm(1000,0,1)
+jarque.bera.test(sample_t_5)
+jarque.bera.test(sample_t_10)
+jarque.bera.test(sample_norm)
+```
+We do not reject the null hypothesis of normality for the series of t-distribution with freedom 10 and $\infty$, but reject the null hypothesis and assume that freedom 5 t-distribution is not under normal assumption.
+
+
+
+# 2
+$$
+\begin{array} { l } { \left( 20 ^ { \prime } \right) \text { According to the efficient market hypothesis, is the return of a portfolio pre- } } \\ { \text { dictable? Is the volatility of a portfolio predictable? State the most appropriate mathe- } } \\ { \text { matical form of the efficient market hypothesis. } } \end{array}
+$$
+Yes, return of a portfolio is predictable according to efficient market hypothesis. No, the volatility of a portfolio is not predictable.
+
+log price $\log S _ { t } = \log S _ { t - 1 } + r _ { t }$ is a random walk.
+
+
+# 3
+(10’) If the Ljung-Box test is employed to test the efﬁcient market hypothesis, what null hypothesis is to be tested? If the autocorrelation for the ﬁrst 4 lags of the monthly log-returns of the S&P 500 is $\widehat { \rho } _ { 1 } = 0.2 , \quad \widehat { \rho } _ { 2 } = - 0.15 , \quad \widehat { \rho } _ { 3 } = 0.25 , \quad \widehat { \rho } _ { 4 } = 0.12$, based on past 5 years data, is the efﬁcient market hypothesis reasonable?
+
+null hypothesis: the m coefficients of Autocorrelation are simultaneously zero
+we have the 
+
+$$
+Q_{LB} = n(n+2)\sum_{k=1}^m \frac{\rho_k}{n-k} \sim X^2_{m.d.f}
+$$
+$Q_{LB} = 12*14*(0.2/11-0.15/10+0.25/9+0.12/8) $
+```{r}
+Q_lb = 12*14*(0.2/11-0.15/10+0.25/9+0.12/8)
+pchisq(Q_lb, df=4, lower.tail=FALSE)
+```
+p-value is bigger than 0.05, we do not reject the null hypothesis that the m coefficients of Autocorrelation are simultaneously zero, the efﬁcient market hypothesis reasonable. 
+
+# 4
+(20’) Suppose that a stock return follows the nonlinear dynamic
+$$
+X _ { t } = \varepsilon _ { t } + \frac { 0.8 \varepsilon _ { t - 1 } ^ { 2 } } { 1 + \varepsilon _ { t - 1 } ^ { 2 } }
+$$
+
+(a). Simulate the time series of length 1000 with $\sigma$ = 1, and show the plots of ACF and PACF.
+```{r}
+library('forecast')
+rand.gen = rnorm(1001)
+X_t = rand.gen[1:1001]+0.8*rand.gen**2/(1+rand.gen**2)
+tsdisplay(X_t, plot.type = "partial")
+```
+
+(b). Show that the ACF of ${X_t }$ is zero except at lag 0;
+$$
+\delta(h) = \frac{\gamma(h)}{\gamma(0)}, \text{where} \gamma(h), \gamma(0) \text{ are auto covariance and varaince}\\
+E(X_t) = \frac{0.8 E(\epsilon^2_{t-1})}{1+E(\varepsilon^2_{t-1})} + E(\varepsilon_{t})\\
+= \frac{0.8\sigma^2}{1+\sigma^2}+0\\
+\gamma(0) = Var(X_t) = \frac{0.8 Var (\varepsilon^2_{t-1})}{1+Var(\varepsilon^2_{t-1})} + \sigma^2\\
+E(\varepsilon^2_{t-1} )= Var(\varepsilon_{t-1})+[E(\varepsilon_{t-1})]^2 = \sigma^2\\
+cov(X_t,X_{t+1}) = cov(\varepsilon _ { t } + \frac { 0.8 \varepsilon _ { t - 1 } ^ { 2 } } { 1 + \varepsilon _ { t - 1 } ^ { 2 } },\varepsilon _ { t+1 } + \frac { 0.8 \varepsilon _ { t } ^ { 2 } } { 1 + \varepsilon _ { t  } ^ { 2 } }) = 0.8 cov(\epsilon_t, \frac { \varepsilon _ { t - 1 } ^  2}{1+\varepsilon _ { t - 1 }})  = 0\\
+\text{similarly we have} cov(X_t,X_{t+2}) = 0\\
+\text{ACF is: 1 if h=0, else: ACF=0} 
+$$
+
+(c). Use (b) to show that the PACF of ${X_t }$ is zero.
+For PACF:
+$$
+\sigma_{kk} = \frac{f_k-\sum_{j=1}^{k-1}\alpha_{k-1,j}f(k-j)}{1-\sum_{j=1}^{k-1}\alpha_{k-1,j}f(j)}\\
+\sigma_{kj} = \alpha_{k-1,j}-\alpha_{kk},\alpha_{k-1,j-1}\\
+\alpha_{11} = \alpha_{22} = \alpha_{12} = 0\\
+$$
+So we have PACF is zero.
+
+This example shows that ACF and PACF are useful mainly for linear time series.
+
+# 5
+## a
+$$
+p \left( x _ { t } | x _ { t - 1 }, ..., x_1 \right) = N \left( \sum_{i=1}^{t-1} \phi x _ p , \sigma^2 \right)
+$$
+
+## b
+$$
+X_t = 
+$$
+
+```{r}
+sigma=1
+x0=1
+x1=1
+x=2
+epsilon <- rnorm(1000)
+```
+
+
+## c
+(1)
+usually we can use AIC and BIC to determine p.
+$$
+\operatorname { AIC } ( k ) = \ln \tilde { \sigma } _ { k } ^ { 2 } + \frac { 2 k } { T }\\
+\mathrm { BIC } ( k ) = \ln \tilde { \sigma } _ { k } ^ { 2 } + \frac { k \ln T } { T }
+$$
+
+(2)
+We can use OLS, EM algorithm, Yule- Walker recursion and Burg recursion, etc to estimate parameters.
+
+(3)
+Box-Ljung test to test $\varepsilon _ { t } \sim \mathcal { N } \left( 0 , \sigma ^ { 2 } \right)$
+
+(4)
+Use $R^2$ to check goodness of fit
+$$
+R ^ { 2 } = 1 - \frac { \sum _ { t = p + 1 } ^ { T } e _ { t } ^ { 2 } } { \sum _ { t = p + 1 } ^ { T } \left( x _ { t } - \overline { x } \right) ^ { 2 } }\\
+\overline { x } = \frac { 1 } { T - p } \sum _ { t = p + 1 } ^ { T } x _ { t }
+$$
+

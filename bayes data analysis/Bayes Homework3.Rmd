@@ -1,0 +1,127 @@
+---
+title: "Bayes Homework3"
+author: "Chen Xupeng"
+output:
+  html_document: default
+---
+
+Textbook Chapter 5:
+
+# Exchangeability:
+## 5.5 
+
+$$
+\begin{array} { c } { \text { Mixtures of independent distributions: suppose the distribution of } \theta = \left( \theta _ { 1 } , \ldots , \theta _ { J } \right) \text { can } } \\ { \text { be written as a mixture of independent and identically distributed components: } } \\ { p ( \theta ) = \int \prod _ { j = 1 } ^ { J } p \left( \theta _ { j } | \phi \right) p ( \phi ) d \phi } \\ { \text { Prove that the covariances } \operatorname { cov } \left( \theta _ { i } , \theta _ { j } \right) \text { are all nonnegative. } } \end{array}
+$$
+$$
+\begin{aligned} \operatorname { cov } \left( \theta _ { i } , \theta _ { j } \right) & = \mathrm { E } \left( \operatorname { cov } \left( \theta _ { i } , \theta _ { j } | \phi \right) \right) + \operatorname { cov } \left( \mathrm { E } \left( \theta _ { i } | \phi \right) , \mathrm { E } \left( \theta _ { j } | \phi \right) \right) \\ & = 0 + \operatorname { cov } ( \mathrm { E } \left( \theta _ { i } | \phi \right) , \mathrm { E } \left( \theta _ { i } | \phi \right)  ) \\ & = \operatorname { var } ( \mathrm { E } \left( \theta _ { i } | \phi \right)  ) \\ & \geq 0 \end{aligned}
+$$
+
+
+## 5.4 (a)(b) 
+$$
+\begin{array} { l } { \text { Exchangeable prior distributions: suppose it is known a priori that the } 2 J \text { parameters } } \\ { \theta _ { 1 } , \ldots , \theta _ { 2 J } \text { are clustered into two groups, with exactly half being drawn from a } \mathrm { N } ( 1,1 ) } \\ { \text { distribution, and the other half being drawn from a } \mathrm { N } ( - 1,1 ) \text { distribution, but we have } } \\ { \text { not observed which parameters come from which distribution. } } \end{array}\\
+\begin{array} { l } { \text { (a) Are } \theta _ { 1 } , \ldots , \theta _ { 2 J } \text { exchangeable under this prior distribution? } } \\ { \text { (b) Show that this distribution cannot be written as a mixture of independent and iden- } } \\ { \text { tically distributed components. } } \end{array}
+$$
+The density can be written as:
+$$
+p \left( \theta _ { 1 } , \ldots , \theta _ { 2 J } \right) = \left( \begin{array} { c } { 2 J } \\ { J } \end{array} \right) ^ { - 1 } \sum _ { p } \left( \prod _ { j = 1 } ^ { J } \mathrm { N } \left( \theta _ { p ( j ) } | 1,1 \right) \prod _ { j = J + 1 } ^ { 2 J } \mathrm { N } \left( \theta _ { p ( j ) } | - 1,1 \right) \right)
+$$
+it is exchangeable
+
+
+# Choosing Prior:
+
+## 5.10 (a)(b) 
+$$
+\begin{array} { l } { \text { 10. Checking the integrability of the posterior distribution: consider the hierarchical normal } } \\ { \text { model in Section } 5.4 . } \\ { \text { (a) If the hyperprior distribution is } p ( \mu , \tau ) \propto \tau ^ { - 1 } ( \text { that is, } p ( \mu , \log \tau ) \propto 1 ) , \text { show that the } } \\ { \text { posterior density is improper. } } \\ { \text { (b) If the hyperprior distribution is } p ( \mu , \tau ) \propto 1 , \text { show that the posterior density is proper } } \\ { \text { if } J > 2 . } \\ { \text { (c) How would you analyze SAT coaching data if } J = 2 \text { (that is, data from only two } } \\ { \text { schools)? } } \end{array}
+$$
+We have $p ( \mu | \tau , y )$ and $p ( \theta | \mu , \tau , y )$ have proper distributions, joint posterior density $p ( \theta , \mu , \tau | y )$ will also be proper if marginal posterior density $p ( \tau | y )$ is proper ($\tau$ has a finite integral)
+
+$$
+\begin{aligned} p ( \tau | y ) \propto & \frac { p ( \tau ) \prod _ { j = 1 } ^ { J } \mathrm { N } \left( \overline { y } _ { . j } | \hat { \mu } , \sigma _ { j } ^ { 2 } + \tau ^ { 2 } \right) } { \mathrm { N } \left( \hat { \mu } | \hat { \mu } , V _ { \mu } \right) } \\ \propto & p ( \tau ) V _ { \mu } ^ { 1 / 2 } \prod _ { j = 1 } ^ { J } \left( \sigma _ { j } ^ { 2 } + \tau ^ { 2 } \right) ^ { - 1 / 2 } \exp \left( - \frac { \left( \overline { y } _ { . j } - \hat { \mu } \right) ^ { 2 } } { 2 \left( \sigma _ { j } ^ { 2 } + \tau ^ { 2 } \right) } \right) \end{aligned}
+$$
+Everything multiplying $p ( \tau )$ in the above equation approaches a nonzero constant limit as $\tau$ tends to zero. So the posterior density near $\tau = 0$ is determined by the prior density. The function $p ( \tau ) \propto 1 / \tau$ is not integrable for a small interval including $\tau = 0$ and so it leads to a nonintegrable posterior density.
+
+
+If $p ( \tau ) \propto 1$, the posterior density is integrable near zero. For $\tau \rightarrow \infty$. The exponential term is less than or equal to $1 .$ We can rewrite the remaining terms as $\left( \sum _ { j = 1 } ^ { J } \left[ \prod _ { k \neq j } \left( \sigma _ { k } ^ { 2 } + \tau ^ { 2 } \right) \right] \right) ^ { - 1 / 2 } .$ For $\tau > 1$ making it bigger by dropping the denominator $\sigma ^ { 2 }$ to yield $\left( J \tau ^ { 2 ( J - 1 ) } \right) ^ { - 1 / 2 }$ . An upper bound on $p ( \tau | y )$ for $\tau$ large is $p ( \tau ) J ^ { - 1 / 2 } / \tau ^ { J - 1 }.$ When $p ( \tau ) \propto 1$ this upper bound is integrable if $J > 2, $ and so $p ( \tau | y )$ is integrable if $J > 2$
+
+
+
+# Inference:
+
+## 5.12
+$$
+\begin{array} { l } { \text { Conditional posterior means and variances: derive analytic expressions for } \mathrm { E } \left( \theta _ { j } | \tau , y \right) \text { and } } \\ { \operatorname { var } \left( \theta _ { j } | \tau , y \right) \text { in the hierarchical normal model (and used in Figures } 5.6 \text { and } 5.7 ) . \text { (Hint: } } \\ { \text { use } ( 2.7 ) \text { and } ( 2.8 ) , \text { averaging over } \mu . ) } \end{array}
+$$
+$$
+\mathrm { E } \left( \theta _ { j } | \tau , y \right) = \mathrm { E } \left[ \mathrm { E } \left( \theta _ { j } | \mu , \tau , y \right) | \tau , y \right] = \mathrm { E } \left[ \frac { \frac { 1 } { \sigma _ { j } ^ { 2 } } y _ { j } + \frac { 1 } { \tau ^ { 2 } } \mu } { \frac { 1 } { \sigma _ { j } ^ { 2 } } + \frac { 1 } { \tau ^ { 2 } } } | \tau , y \right] = \frac { \frac { 1 } { \sigma _ { j } ^ { 2 } } y _ { j } + \frac { 1 } { \tau ^ { 2 } } \hat { \mu } } { \frac { 1 } { \sigma _ { j } ^ { 2 } } + \frac { 1 } { \tau ^ { 2 } } }
+$$
+$$
+\operatorname { var } \left( \theta _ { j } | \tau , y \right) = \operatorname { E[var } \left( \theta _ { j } | \mu , \tau , y \right) | \tau , y ] + \operatorname { var } \left[ \mathrm { E } \left( \theta _ { j } | \mu , \tau , y \right) | \tau , y \right] = \frac { 1 } { \frac { 1 } { \sigma _ { j } ^ { 2 } } + \frac { 1 } { \tau ^ { 2 } } } + \left( \frac { \frac { 1 } { \tau ^ { 2 } } } { \frac { 1 } { \sigma _ { j } ^ { 2 } } + \frac { 1 } { \tau ^ { 2 } } } \right) ^ { 2 } V _ { \mu }
+$$
+
+
+
+## 5.13
+Hierarchical binomial model: Exercise 3.8 described a survey of bicycle traﬃc in Berkeley, California, with data displayed in Table 3.3. For this problem, restrict your attention to the ﬁrst two rows of the table: residential streets labeled as ‘bike routes,’ which we will use to illustrate this computational exercise.
+
+(a) Set up a model for the data in Table 3.3 so that, for j = 1,..., 10, the observed number of bicycles at location j is binomial with unknown probability $\theta_j$ and sample size equal to the total number of vehicles (bicycles included) in that block. The parameter θ j can be interpreted as the underlying or ‘true’ proportion of traﬃc at location j that is bicycles. (See Exercise 3.8.) Assign a beta population distribution for the parameters $\theta_j$ and a noninformative hyperprior distribution as in the rat tumor example of Section 5.3. Write down the joint posterior distribution.
+
+$p ( \theta , \alpha , \beta | y ) \propto [ p ( y | \theta , \alpha , \beta ) ] [ p ( \theta | \alpha , \beta ) p ( \alpha , \beta ) ]$
+
+Let us consider $y _ { 1 } , y _ { 2 } , \ldots , y _ { 10 }$ are the number of bicycles at ten different
+locations, and $n _ { 1 } , n _ { 2 } \ldots , n _ { 10 }$ are the totel vehicles including bicycles at
+location $1 - 10 ,$ According to the statement, $y _ { j }$ can be considered to be
+generated from a binomial process with known $\theta _ { j }$
+
+$y _ { j } | \theta _ { j } \sim \operatorname { Bin } \left( n _ { j } , \theta _ { j } \right) , j = 1,2 , \ldots , 10$
+$p ( y | \theta , \alpha , \beta ) = \prod _ { j = 1 } ^ { 10 } \left( \begin{array} { c } { n _ { j } } \\ { y _ { j } } \end{array} \right) \theta _ { j } ^ { y _ { j } } \left( 1 - \theta _ { j } \right) ^ { n _ { j } - y _ { j } }$
+
+Similarly, $\theta _ { j }$ has Beta distribution with hyper-parameter $\alpha$ and $\beta$
+$\theta _ { j } \sim \operatorname { Beta } ( \alpha , \beta )$
+
+$p ( \theta | \alpha , \beta ) = \prod _ { j = 1 } ^ { 10 } \frac { \Gamma ( \alpha + \beta ) } { \Gamma ( \alpha ) \Gamma ( \beta ) } \theta _ { j } ^ { \alpha - 1 } \left( 1 - \theta _ { j } \right) ^ { \beta - 1 }$
+One of the possible non-informative prior distribution for the hyper
+parameters is;
+
+By putting things together,
+
+$$
+\begin{array} { l } { p ( \theta , \alpha , \beta | y ) \propto p ( \alpha , \beta ) \prod _ { j = 1 } ^ { 10 } \theta _ { j } ^ { y _ { j } } \left( 1 - \theta _ { j } \right) ^ { n _ { j } - y _ { j } } \prod _ { j = 1 } ^ { 10 } \frac { \Gamma ( \alpha + \beta ) } { \Gamma ( \alpha ) \Gamma ( \beta ) } \theta _ { j } ^ { \alpha - 1 } \left( 1 - \theta _ { j } \right) ^ { \beta - 1 } } \\ { p ( \theta , \alpha , \beta | y ) \propto ( \alpha + \beta ) ^ { - 5 / 2 } \left( \frac { \Gamma ( \alpha + \beta ) } { \Gamma ( \alpha ) \Gamma ( \beta ) } \right) ^ { 10 } \prod _ { j = 1 } ^ { 10 } \theta _ { j } ^ { y _ { j } } \left( 1 - \theta _ { j } \right) ^ { n _ { j } - y _ { j } } \theta _ { j } ^ { \alpha - 1 } \left( 1 - \theta _ { j } \right) ^ { \beta - 1 } } \end{array}\\
+p ( \theta , \alpha , \beta | y ) \propto ( \alpha + \beta ) ^ { - 5 / 2 } \left( \frac { \Gamma ( \alpha + \beta ) } { \Gamma ( \alpha ) \Gamma ( \beta ) } \right) ^ { 10 } \prod _ { j = 1 } ^ { 10 } \theta _ { j } ^ { \alpha + y _ { j } - 1 } \left( 1 - \theta _ { j } \right) ^ { \beta + n _ { j } - y _ { j } - 1 }
+$$
+
+(b) Compute the marginal posterior density of the hyperparameters and draw simulations from the joint posterior distribution of the parameters and hyperparameters, as in Section 5.3.
+
+The marginal distribution of the hyperparameters can be computed
+through the following algebraic expression,
+$p ( \alpha , \beta | y ) = \frac { p ( \theta , \alpha , \beta | y ) } { p ( \theta | \alpha , \beta , y ) }$
+
+$$
+\begin{array} { l } { p ( \theta , \alpha , \beta | y ) \propto ( \alpha + \beta ) ^ { - 5 / 2 } \left( \frac { \Gamma ( \alpha + \beta ) } { \Gamma ( \alpha ) \Gamma ( \beta ) } \right) ^ { 10 } \prod _ { j = 1 } ^ { 10 } \theta _ { j } ^ { \alpha + y _ { j } - 1 } \left( 1 - \theta _ { j } \right) ^ { \beta + n _ { j } - y _ { j } - 1 } } \\ { p ( \theta | \alpha , \beta , y ) = \prod _ { j = 1 } ^ { 10 } \frac { \Gamma \left( \alpha + \beta + n _ { j } \right) } { \Gamma \left( \alpha + y _ { j } \right) \Gamma \left( \beta + n _ { j } - y _ { j } \right) } \theta _ { j } ^ { \alpha + y _ { j } - 1 } \left( 1 - \theta _ { j } \right) ^ { \beta + n _ { j } - y _ { j } - 1 } } \\ { p ( \alpha , \beta | y ) \propto ( \alpha + \beta ) ^ { - 5 / 2 } \left( \frac { \Gamma ( \alpha + \beta ) } { \Gamma ( \alpha ) \Gamma ( \beta ) } \right) ^ { 10 } \prod _ { j = 1 } ^ { 10 } \frac { \Gamma \left( \alpha + y _ { j } \right) \Gamma \left( \beta + n _ { j } - y _ { j } \right) } { \Gamma \left( \alpha + \beta + n _ { j } \right) } } \end{array}
+$$
+
+For the given values of $\alpha$ and $\beta ,$ we can simulate $p \left( \theta _ { j } | \alpha , \beta , y \right)$
+because its normalized form is available.
+
+(c) Compare the posterior distributions of the parameters $\theta_j$ to the raw proportions, (number of bicycles / total number of vehicles) in location j. How do the inferences from the posterior distribution diﬀer from the raw proportions?
+
+![image](image.png)
+
+(d) Give a 95% posterior interval for the average underlying proportion of traﬃc that is bicycles.
+
+quantile(p, c(0.025, 0.975)) = 0.1465 0.2938. 14.6% to 29.4% of the vehicles are bicycles.
+
+
+(e) A new city block is sampled at random and is a residential street with a bike route. In an hour of observation, 100 vehicles of all kinds go by. Give a 95% posterior interval for the number of those vehicles that are bicycles. Discuss how much you trust this interval in application.
+
+Essentially, we are looking for posterior predictive distribution $p ( \tilde { y } | y )$
+In order to get a sample from it, we need to generate new values of $\tilde { \theta }$
+from $\alpha , \beta$ samples. Now using these values, we can sample from binomial distribution
+with $n = 100$ i.e. $\tilde { y } | \tilde { \theta } \sim \operatorname { Bin } ( 100 , \tilde { \theta } )$
+
+quantile(y.new, c(0.025, 0.975)) = 3 49. which means 3 to 49 bicycles will pass from the residential street with bike route (newly sampled) with the probability of 95%.
+
+(f) Was the beta distribution for the $\theta_j$ ’s reasonable?
+The plot of $\theta$ vs $\frac { y } { n }$ fits well which indicates the values of $\theta$ are reasonable.
