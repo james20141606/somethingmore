@@ -1,0 +1,73 @@
+{
+    "snippets" : 
+    [
+       	{
+			"name":"science basic",
+			"code": [
+					"import argparse, sys, os, errno",
+					"%pylab inline",
+					"import numpy as np",
+					"import pandas as pd",
+					"import matplotlib.pyplot as plt",
+					"plt.style.use('ggplot')",
+					"import seaborn as sns",
+					"import h5py",
+					"import os",
+					"from tqdm import tqdm",
+					"import scipy",
+					"import sklearn",
+					"from scipy.stats import pearsonr",
+					"import warnings",
+					"warnings.filterwarnings('ignore')"
+					]
+        },
+		{
+            "name" : "high level plot",
+            "code" : [
+                "import matplotlib.animation as animation",
+					"from matplotlib import rc",
+					"from IPython.display import HTML, Image",
+					"rc('animation', html='html5')",
+					"import plotly",
+					"import plotly.offline as off",
+					"import plotly.plotly as py",
+					"import plotly.graph_objs as go"
+            		]
+        },
+		{
+			"name" : "deep learning",
+			"code" : [
+					"import keras",
+					"from keras import backend as K",
+					"from keras.callbacks import TensorBoard",
+					"from keras.callbacks import EarlyStopping",
+					"from keras.optimizers import Adam",
+					"from keras.callbacks import ModelCheckpoint",
+					"import tensorflow as tf",
+					"from keras.models import Model",
+					"from keras.layers import Input, Conv2D, MaxPooling2D, UpSampling2D,Lambda, Dot,average,add, concatenate",
+					"from keras.layers.normalization import BatchNormalization",
+					"from keras.layers.core import Dropout, Activation,Reshape",
+					"from keras.layers.merge import concatenate",
+					"from keras.callbacks import TensorBoard, EarlyStopping, ModelCheckpoint",
+					"from keras.initializers import RandomNormal",
+					"import os",
+					"os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID" # so the IDs match nvidia-smi",
+					"os.environ["CUDA_VISIBLE_DEVICES"] = "4"",
+					"from keras.backend.tensorflow_backend import set_session",
+					"config = tf.ConfigProto()",
+					"config.gpu_options.per_process_gpu_memory_fraction = 0.99",
+					"set_session(tf.Session(config=config))"
+					]
+		},
+		{
+            "name" : "pytorch",
+            "code" : [
+                    "import torch",
+					"import math",
+					"import torch.nn as nn",
+					"import torch.nn.functional as F"
+            		 ]
+        }
+    ]
+}
