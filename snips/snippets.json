@@ -1,0 +1,154 @@
+{
+    "snippets" : [
+    {
+        "name" : "science basic",
+        "code" : [
+            "import gc, argparse, sys, os, errno",
+            "%pylab inline",
+            "import numpy as np",
+            "import pandas as pd",
+            "import matplotlib.pyplot as plt",
+            "import seaborn as sns",
+            "#sns.set()",
+            "#sns.set_style('whitegrid')",
+            "import h5py",
+            "from PIL import Image",
+            "import os",
+            "from tqdm import tqdm_notebook as tqdm",
+            "import scipy",
+            "import sklearn",
+            "from scipy.stats import pearsonr",
+            "import warnings",
+            "warnings.filterwarnings('ignore')"
+        ]
+        },
+    {
+            "name" : "high level plot",
+            "code" : [
+                    "import matplotlib.animation as animation",
+            "from matplotlib import rc",
+            "from IPython.display import HTML, Image",
+            "from ipywidgets import interact,Dropdown,IntSlider,FloatRangeSlider, FloatSlider, RadioButtons",
+             "rc('animation', html='html5')",
+            "import plotly",
+            "import plotly.offline as off",
+            "import plotly.plotly as py",
+            "import plotly.graph_objs as go"
+                ]
+        },
+    {
+        "name" : "deep learning",
+        "code" : [
+            "import keras",
+            "from keras import backend as K",
+            "from keras.callbacks import EarlyStopping,TensorBoard,ModelCheckpoint",
+            "from keras.optimizers import Adam",
+            "import tensorflow as tf",
+            "from keras.models import Model,Sequential",
+            "from keras.layers import Merge,Input,Conv1D,  Conv2D, MaxPooling1D,MaxPooling2D, UpSampling2D,Lambda, Dot,average,add, concatenate,GlobalMaxPooling1D, GlobalMaxPooling2D, AveragePooling1D",
+            "from keras.layers.normalization import BatchNormalization",
+            "from keras.layers.core import Dense, Dropout, Activation, Flatten,Reshape",
+            "from keras.layers.merge import Concatenate, Add",
+            "from keras.initializers import RandomNormal",
+            "from keras.regularizers import l2, l1, l1_l2",
+            "from keras.layers.wrappers import Bidirectional",
+            "from keras.layers.recurrent import LSTM",
+            "from functools import partial",
+            "import os",
+            "os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'",
+            "os.environ['CUDA_VISIBLE_DEVICES'] = '4'",
+            "from keras.backend.tensorflow_backend import set_session",
+            "config = tf.ConfigProto()",
+            "#config.gpu_options.per_process_gpu_memory_fraction = 0.99",
+            "config.gpu_options.allow_growth =True",
+            "set_session(tf.Session(config=config))"
+            ]
+        },
+    {
+            "name" : "pytorch",
+            "code" : [
+            "import torch",
+            "import math",
+            "import torch.nn as nn",
+            "import torch.nn.functional as F"
+                ]
+        },
+    {
+            "name": "misc",
+            "code" : [
+            "%lsmagic",
+            "%store",
+            "%who",
+            "<div class='alert alert-block alert-success'>",
+            " This is <b>gooood</b>!",
+            "</div>",
+            "InteractiveShell.ast_node_interactivity = 'all'",
+            "%%time",
+            "%%writefile utils.py",
+            "from IPython.core.interactiveshell import InteractiveShell",
+            "import pandas_profiling",
+            "#anndate_df.iloc[:5000].profile_report()"
+            ]
+        },
+    {
+        "name": "finace",
+        "code" : [
+            "from io import BytesIO",
+            "from ipywidgets import interact,interactive, FloatSlider,IntSlider, RadioButtons,Dropdown,Tab,Text",
+            "from pyecharts import Grid, Bar, Line, Kline, Overlap",
+            "import talib",
+            "import numpy as np",
+            "import tushare as ts"
+        ]
+    },
+    {
+        "name": "IFTTT",
+        "code" : [
+            "from py2ifttt import IFTTT",
+            "ifttt = IFTTT('iOn2wIPNnZW2r9uNgo_azDyi3Qw-n5COZp85qFbWrHG', 'jupyter training notification')",
+            "# IFTTT notification",
+            "model_name = 'AutoEncoder'",
+            "training_loss = 0.2",
+            "test_loss = 0.1",
+            "ifttt.notify(model_name, str(training_loss), str(test_loss))"
+        ]
+    },
+    {
+        "name": "toggle one cell",
+        "code" : [
+            "from IPython.display import HTML",
+            "import random",
+            "def hide_toggle():",
+            "    this_cell = '''$('div.cell.code_cell.rendered.selected')'''",
+            "    next_cell = this_cell + '.next()'",
+            "    toggle_text = 'Toggle show/hide'  # text shown on toggle link",
+            "    target_cell = this_cell  # target cell to control with toggle",
+            "    js_hide_current = ''  # bit of JS to permanently hide code in current cell (only when toggling next cell)",
+            "    js_f_name = 'code_toggle_{}'.format(str(random.randint(1,2**32)))",
+            "    html = '''<script>function {f_name}() {{{cell_selector}.find('div.input').toggle();}}{js_hide_current} </script>",
+            "        <a href='javascript:{f_name}()'>{toggle_text}</a>'''.format(f_name=js_f_name,cell_selector=target_cell,",
+            "        js_hide_current=js_hide_current, toggle_text=toggle_text)",
+            "    return HTML(html)",
+            "hide_toggle()"
+        ]
+    },
+    {
+        "name": "toggle all",
+        "code" : [
+            "from IPython.core.display import HTML,Image",
+            "HTML('''<script> code_show=true;  function code_toggle() {  if (code_show){  $('div.input').hide();  } else {  $('div.input').show();  }  code_show = !code_show }  $( document ).ready(code_toggle); </script> <form action='javascript:code_toggle()'><input type='submit' value='Toggle Code'></form>''')"
+        ]
+    },
+    {
+        "name": "subplots",
+        "code" : [
+            "fig,ax=plt.subplots(10,10,figsize=(30,30))",
+            "for i in range(10):",
+            "    for j in range(10):",
+            "        ax[i,j].imshow(images_example[i*10+j])",
+            "        ax[i,j].set_title(text_annotate[i,j])",
+            "fig.tight_layout()"
+        ]
+    }
+    ]
+}
