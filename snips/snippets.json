@@ -14,7 +14,7 @@
             "import h5py",
             "from PIL import Image",
             "import os",
-            "from tqdm import tqdm_notebook as tqdm",
+            "from tqdm.notebook import tqdm",
             "import scipy",
             "import sklearn",
             "from scipy.stats import pearsonr",
@@ -148,6 +148,18 @@
             "        ax[i,j].imshow(images_example[i*10+j])",
             "        ax[i,j].set_title(text_annotate[i,j])",
             "fig.tight_layout()"
+        ]
+    },
+    {
+        "name": "pandas profile",
+        "code" : [
+            "from pandas_profiling import ProfileReport",
+            "profile = ProfileReport(df, title='Pandas Profiling Report', html={'style':{'full_width':True}})",
+            "profile.to_widgets()",
+            "profile.to_notebook_iframe()",
+            "profile.to_file(output_file='your_report.html')",
+            "profile = ProfileReport(large_dataset, minimal=True)",
+            "profile.to_file(output_file='output.html')"
         ]
     }
     ]
