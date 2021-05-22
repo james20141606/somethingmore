@@ -1,0 +1,2 @@
+Duo: 0.1%, Dai: -0.2%, Money: 30, data: 2020-12-30, stock: 000001
+Duo: 4%, Dai: 6%, Money: 30, data: 2020-12-30, stock: 300750
