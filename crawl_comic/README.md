@@ -576,7 +576,7 @@ $$ \text{In the } S(\mu) \text{ function, } \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rh
 \text{ And the } n (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) \geq 0 . $$
 
 $$\begin{align*} 
-\min_{\mu} \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + n (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)  \\
+\arg \min_{\mu} \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1}  \\
 \end{align*}$$
 
 So
