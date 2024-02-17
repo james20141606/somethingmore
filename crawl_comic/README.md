@@ -580,7 +580,7 @@ $$\begin{align*}
 \end{align*}$$
 
 $$\begin{align*} 
-\arg \min_{\mu} \sum_{i=1}^{n}  (X_i - \mu^*)^T  R(\rho)^{-1} (X_i - \mu^*) \\
+\arg \min_{\mu} \sum_{i=1}^{n}  (X_i - \mu^{*})^T  R(\rho)^{-1} (X_i - \mu^{*}) \\
 \end{align*}$$
 
 So
