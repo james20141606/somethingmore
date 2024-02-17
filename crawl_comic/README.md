@@ -556,7 +556,7 @@ $$\begin{align*}
 S(\mu) &= \sum_{i=1}^{n} ( X_i - \mu^* + \mu^* - \mu )^T R(\rho)^{-1} ( X_i - \mu^* + \mu^* - \mu ) \\
 &= \sum_{i=1}^{n} ((X_i - \mu^*) + (\mu^* - \mu))^T R(\rho)^{-1} ((X_i - \mu^*) + (\mu^* - \mu)) \\
 &= \sum_{i=1}^{n} ( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + (X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) + (\mu^* - \mu)^T R(\rho)^{-1} (X_i - \mu^*) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) ) \\
-&= \sum_{i=1}^{n} ( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + 2(X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) ) \\
+&= \sum_{i=1}^{n} ( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + 2(X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) )
 \end{align*}$$
 
 $$ \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) = 0 \text{, because } \sum_{i=1}^{n} (X_i - \mu^*) = 0 $$
