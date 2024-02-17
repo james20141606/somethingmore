@@ -552,19 +552,19 @@ $$ n\mu^* = \sum_{i=1}^{n} X_i $$
 
 $$ \mu^* = \frac{1}{n} \sum_{i=1}^{n} X_i $$
 
-$$ \begin{align*} 
+$$\begin{align*} 
 S(\mu) &= \sum_{i=1}^{n} ( X_i - \mu^* + \mu^* - \mu )^T R(\rho)^{-1} ( X_i - \mu^* + \mu^* - \mu ) \\
 &= \sum_{i=1}^{n} ((X_i - \mu^*) + (\mu^* - \mu))^T R(\rho)^{-1} ((X_i - \mu^*) + (\mu^* - \mu)) \\
 &= \sum_{i=1}^{n} ( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + (X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) + (\mu^* - \mu)^T R(\rho)^{-1} (X_i - \mu^*) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) ) \\
 &= \sum_{i=1}^{n} ( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + 2(X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) ) \\
-\end{align*} $$
+\end{align*}$$
 
 $$ \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) = 0 \text{, because } \sum_{i=1}^{n} (X_i - \mu^*) = 0 $$
 
 $$\begin{align*} 
 S(\mu) &= \sum_{i=1}^{n} \left( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) \right) \\
 &= \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + \sum_{i=1}^{n} (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)  \\
-&= \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + n (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)  \\
+&= \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + n (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)
 \end{align*}$$
 
 In the $S(\mu)$ function,
@@ -581,7 +581,7 @@ $$\begin{align*}
 &= \arg \min_{\mu} (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)  \\
 &= \mu^* \\
 &= \frac{1}{n} \sum_{i=1}^{n} X_i \\
-\end{align*} $$
+\end{align*}$$
 
 So
 $$\text{MLE}(\mu) = \hat{\mu} = \mu^* = \frac{1}{n} \sum_{i=1}^{n} X_i$$.
