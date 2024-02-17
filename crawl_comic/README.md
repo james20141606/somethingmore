@@ -579,6 +579,8 @@ $$\begin{align*}
 \hat{\mu} &= \arg \min_{\mu} S(\mu) \\
 &= \arg \min_{\mu} \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + n (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)  \\
 &= \arg \min_{\mu} (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)  \\
+&= \mu^* \\
+&= \frac{1}{n} \sum_{i=1}^{n} X_i \\
 \end{align*}$$
 
 So
