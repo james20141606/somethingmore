@@ -546,45 +546,45 @@ So we have $\text{MLE}(\mu) = \hat{\mu} = \arg \min_{\mu} S(\mu)$.
 
 ## (b)
 
-$$ \sum_{i=1}^{n} (X_i - \mu^*) = 0 $$
+$$ \sum_{i=1}^{n} (X_i - \mu^\*) = 0 $$
 
-$$ n\mu^* = \sum_{i=1}^{n} X_i $$
+$$ n\mu^\* = \sum_{i=1}^{n} X_i $$
 
-$$ \mu^* = \frac{1}{n} \sum_{i=1}^{n} X_i $$
+$$ \mu^\* = \frac{1}{n} \sum_{i=1}^{n} X_i $$
 
-\begin{align} 
-S(\mu) &= \sum_{i=1}^{n} ( X_i - \mu^* + \mu^* - \mu )^T R(\rho)^{-1} ( X_i - \mu^* + \mu^* - \mu ) \\
-&= \sum_{i=1}^{n} ((X_i - \mu^*) + (\mu^* - \mu))^T R(\rho)^{-1} ((X_i - \mu^*) + (\mu^* - \mu)) \\
-&= \sum_{i=1}^{n} ( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + (X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) + (\mu^* - \mu)^T R(\rho)^{-1} (X_i - \mu^*) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) ) \\
-&= \sum_{i=1}^{n} ( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + 2(X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) )
-\end{align}
+$$ \begin{align*} 
+S(\mu) &= \sum_{i=1}^{n} ( X_i - \mu^\* + \mu^\* - \mu )^T R(\rho)^{-1} ( X_i - \mu^\* + \mu^\* - \mu ) \\
+&= \sum_{i=1}^{n} ((X_i - \mu^\*) + (\mu^\* - \mu))^T R(\rho)^{-1} ((X_i - \mu^\*) + (\mu^\* - \mu)) \\
+&= \sum_{i=1}^{n} ( (X_i - \mu^\*)^T R(\rho)^{-1} (X_i - \mu^\*) + (X_i - \mu^\*)^T R(\rho)^{-1} (\mu^\* - \mu) + (\mu^\* - \mu)^T R(\rho)^{-1} (X_i - \mu^\*) + (\mu^\* - \mu)^T R(\rho)^{-1} (\mu^\* - \mu) ) \\
+&= \sum_{i=1}^{n} ( (X_i - \mu^\*)^T R(\rho)^{-1} (X_i - \mu^\*) + 2(X_i - \mu^\*)^T R(\rho)^{-1} (\mu^\* - \mu) + (\mu^\* - \mu)^T R(\rho)^{-1} (\mu^\* - \mu) ) \\
+\end{align*} $$
 
-$$ \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (\mu^* - \mu) = 0 \text{, because } \sum_{i=1}^{n} (X_i - \mu^*) = 0 $$
+$$ \sum_{i=1}^{n} (X_i - \mu^\*)^T R(\rho)^{-1} (\mu^\* - \mu) = 0 \text{, because } \sum_{i=1}^{n} (X_i - \mu^\*) = 0 $$
 
 $$\begin{align*} 
-S(\mu) &= \sum_{i=1}^{n} \left( (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) \right) \\
-&= \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + \sum_{i=1}^{n} (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)  \\
-&= \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) + n (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu)
+S(\mu) &= \sum_{i=1}^{n} \left( (X_i - \mu^\*)^T R(\rho)^{-1} (X_i - \mu^\*) + (\mu^\* - \mu)^T R(\rho)^{-1} (\mu^\* - \mu) \right) \\
+&= \sum_{i=1}^{n} (X_i - \mu^\*)^T R(\rho)^{-1} (X_i - \mu^\*) + \sum_{i=1}^{n} (\mu^\* - \mu)^T R(\rho)^{-1} (\mu^\* - \mu)  \\
+&= \sum_{i=1}^{n} (X_i - \mu^\*)^T R(\rho)^{-1} (X_i - \mu^\*) + n (\mu^\* - \mu)^T R(\rho)^{-1} (\mu^\* - \mu)  \\
 \end{align*}$$
 
 In the $S(\mu)$ function,
-$\sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*)$ is fixed as
-we have $\mu^* = \frac{1}{n} \sum_{i=1}^{n} X_i$. And the \$n (^\* - )^T
+$\sum_{i=1}^{n} (X_i - \mu^\*)^T R(\rho)^{-1} (X_i - \mu^\*)$ is fixed as
+we have $\mu^\* = \frac{1}{n} \sum_{i=1}^{n} X_i$. And the \$n (^\* - )^T
 R()^{-1} (^\* - ) \$.
 
-$$ \text{In the } S(\mu) \text{ function, } \sum_{i=1}^{n} (X_i - \mu^*)^T R(\rho)^{-1} (X_i - \mu^*) \text{ is fixed as we have } \mu^* = \frac{1}{n} \sum_{i=1}^{n} X_i. \\
-\text{ And the } n (\mu^* - \mu)^T R(\rho)^{-1} (\mu^* - \mu) \geq 0 . $$
+$$ \text{In the } S(\mu) \text{ function, } \sum_{i=1}^{n} (X_i - \mu^\*)^T R(\rho)^{-1} (X_i - \mu^\*) \text{ is fixed as we have } \mu^\* = \frac{1}{n} \sum_{i=1}^{n} X_i. \\
+\text{ And the } n (\mu^\* - \mu)^T R(\rho)^{-1} (\mu^\* - \mu) \geq 0 . $$
 
 $$\begin{align*} 
-\arg \min_{\mu} \sum_{i=1}^{n} (X_i - \mu^\*)^T  R(\rho)^{-1} (X_i - \mu^\*) + n (\mu^\* - \mu)^T  R(\rho)^{-1}  (\mu^\* - \mu)  \\
-\end{align*}$$
-
-$$\begin{align*} 
-\arg \min_{\mu} \sum_{i=1}^{n}  (X_i - \mu^{*})^T  R(\rho)^{-1} (X_i - \mu^{*}) \\
-\end{align*}$$
+\hat{\mu} &= \arg \min_{\mu} S(\mu) \\
+&= \arg \min_{\mu} \sum_{i=1}^{n} (X_i - \mu^\*)^T R(\rho)^{-1} (X_i - \mu^\*) + n (\mu^\* - \mu)^T R(\rho)^{-1} (\mu^\* - \mu)  \\
+&= \arg \min_{\mu} (\mu^\* - \mu)^T R(\rho)^{-1} (\mu^\* - \mu)  \\
+&= \mu^\* \\
+&= \frac{1}{n} \sum_{i=1}^{n} X_i \\
+\end{align*} $$
 
 So
-$$\text{MLE}(\mu) = \hat{\mu} = \mu^* = \frac{1}{n} \sum_{i=1}^{n} X_i$$.
+$$\text{MLE}(\mu) = \hat{\mu} = \mu^\* = \frac{1}{n} \sum_{i=1}^{n} X_i$$.
 
 ## (c)
 
